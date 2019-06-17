@@ -1,27 +1,27 @@
 <div ng-controller="RequestsMyController as vm" ng-init="vm.buildPager();">
     <div class="pagetop">
         <div class="container">
-            <div class="padding-top-30 padding-bottom-30 text-center">
+            <div class="requests-btn-list padding-top-30 padding-bottom-30 text-center">
                 <div class="btn-group requests-group">
-                    <a class="btn btn-default btn-width-180"
+                    <a class="btn btn-default btn-min-width-170"
                        ui-sref="requests.list">
                         {{'REQUESTS.NAV_LIST' | translate}}
                     </a>
-                    <a class="btn btn-default btn-width-180"
+                    <a class="btn btn-default btn-min-width-170"
                        ui-sref="requests.add">
                         {{'REQUESTS.NAV_ADD' | translate}}
                     </a>
                     <div class="clearfix visible-xxs-block "></div>
-                    <a class="btn btn-success btn-width-180"
+                    <a class="btn btn-success btn-min-width-170"
                        ui-sref="requests.my">
                         {{'REQUESTS.NAV_MY' | translate}}
                     </a>
-                    <a class="btn btn-default btn-width-180"
+                    <a class="btn btn-default btn-min-width-170"
                        ui-sref="requests.res">
                         {{'REQUESTS.NAV_RES' | translate}}
                     </a>
                 </div>
-                <i class="fa fa-question-circle-o request-help" aria-hidden="true"
+                <i class="fa fa-question-circle request-help" aria-hidden="true"
                    title="{{ 'REQUESTS.DESC_HELP_TITLE' | translate}}"
                    ng-click="vm.onShowHelpClicked();">
                 </i>
@@ -30,7 +30,7 @@
                 <div class="col-md-10 col-md-offset-1">
                     <div class="requests-desc" ng-class="{'panel-collapsed': vm.show_desc_help=='no', 'requests-desc-hide': vm.show_desc_help=='no'}">
                         <span ng-bind-html="vm.getRequestsDesc();"></span>
-                        <i class="fa fa-close" aria-hidden="true"
+                        <i class="fa fa-times" aria-hidden="true"
                            title="{{ 'REQUESTS.CLOSE_HELP_TITLE' | translate}}"
                            ng-click="vm.onCloseHelpClicked();">
                         </i>

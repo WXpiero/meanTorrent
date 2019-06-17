@@ -1,6 +1,9 @@
 @import (reference) "../../../core/client/less/mt-var.less";
 
 .navbar-nav {
+    .dropdown-toggle {
+        position: relative;
+    }
     .fa-class-revers {
         .fa-fw {
             color: #fafbfc;
@@ -10,6 +13,15 @@
         margin: 0 5px 0 0;
         //font-size: 16px;
     }
+}
+
+.badge-class-admin-torrents {
+    display: none;
+}
+
+.badge-class-admin-tickets {
+    display: none;
+    top: 13px !important;
 }
 
 .home_notice {
@@ -26,7 +38,7 @@
     .sale_key {
         color: @brand-danger;
     }
-    .fa-close {
+    .fa-times {
         position: absolute;
         top: 20px;
         right: 20px;
@@ -158,7 +170,7 @@
     .fun-item {
         .fa-stack {
             cursor: pointer;
-            font-size: 50px;
+            font-size: 45px;
             color: #fff;
             transition: color .2s ease-in;
             .fun-icon {

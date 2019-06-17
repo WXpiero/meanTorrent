@@ -76,7 +76,8 @@ var UserSchema = new Schema({
   },
   displayName: {
     type: String,
-    trim: true
+    trim: true,
+    maxlength: 16
   },
   email: {
     type: String,
@@ -148,6 +149,13 @@ var UserSchema = new Schema({
   status: {
     type: String,
     default: 'inactive'
+  },
+  banReason: {
+    reason: {
+      type: String,
+      default: ''
+    },
+    params: {}
   },
   vip_start_at: {
     type: Date,
@@ -233,6 +241,7 @@ var UserSchema = new Schema({
   last_idled: {
     type: Date
   },
+  medals: [String],
   signed_ip: [String],
   leeched_ip: [String],
   curr_signed_ip: String,

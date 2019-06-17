@@ -24,6 +24,7 @@
     VALUE_SELECT_ALL: '全選',
     BTN_REMOVE: '刪除',
     BTN_CONTINUE: '繼續',
+    BTN_CANCEL: '取消',
     VALUE_TRUE: '是',
     VALUE_FALSE: '否',
     VALUE_ON: '開',
@@ -50,7 +51,9 @@
     MENU_ADMIN_TICKETS: '客戶服務中心',
     MENU_USERS_ADMIN: '用戶管理',
     MENU_UPLOAD: '發布',
+    MENU_MEDALS: '勳章',
     MENU_FORUMS: '論壇',
+    MENU_MORE: '更多',
     MENU_REQUESTS: '求種',
     MENU_ABOUT: '關於',
     MENU_ABOUT_MANUAL: '用戶手冊',
@@ -90,6 +93,8 @@
     MENU_MY_INVITE: '我的邀請',
     MENU_MY_DATA_CENTER: '數據中心',
     MENU_ACCOUNT_STATUS: '帳戶狀態',
+    MENU_TORRENTS_STATUS: '種子狀態',
+    MENU_MY_FAVORITE: '我的{{"FAVORITES.NAME" | translate}}',
     EDIT_PROFILE: '修改個人資訊',
     EDIT_PROFILE_PIC: '修改個人頭像',
     EDIT_SIGNATURE: '修改論壇簽名',
@@ -250,6 +255,7 @@
       VIP: 'Vip',
       VIP_DONATE: '捐贈VIP',
       VIP_RULES: 'Vip用戶協議',
+      MEDALS: '勳章牆',
       FORUM: '論壇',
       REQUESTS: '求種',
       REQUESTS_MY: '我的求種',
@@ -278,6 +284,7 @@
       MESSAGES_BOX: '站內訊息',
       MESSAGES_SEND: '傳送訊息',
       STATUS_ACCOUNT: '帳戶狀態',
+      STATUS_TORRENTS: '種子狀態',
       STATUS_UPLOADED: '我的種子',
       STATUS_SEEDING: '正在做種',
       STATUS_LEECHING: '正在下載',
@@ -316,6 +323,7 @@
       P_REQUIRED: '密碼不能為空.',
       FORGOT_PASSWORD: '忘記了密碼?',
       DN_REQUIRED: '顯示暱稱不能為空.',
+      DN_MAX_LENGTH: '顯示暱稱長度不能超過 {{maxLength}} 字符',
       RO_REQUIRED: '角色不能為空.',
       SENDING_MAIL: '正在傳送驗證郵件，請稍等...',
       SIGNIN_ERROR: '登入失敗!',
@@ -356,7 +364,6 @@
     CA_TORRENT_SALE_STATUS: '促銷狀態',
     CA_TORRENT_SALE_NOW: '正在促銷',
     CA_TORRENT_VIP: 'VIP 資源',
-    CA_TORRENT_TOP: '置頂狀態',
     CA_TORRENT_UNIQUE: '禁轉狀態',
     CA_RESOURCE_TYPE: '資源類別',
     DESC_MAKE_RSS_URL: '根據當前搜索條件生成的 RSS 地址, 點擊取得連結並複製至粘貼版.',
@@ -365,6 +372,7 @@
     COPY_LINK_TEXT: '複製種子檔案地址',
     COPY_TO_CLIPBOARD_SUCCESSFULLY: '內容已複製到剪下板!',
     TORRENT_LABEL_LINK: '種子地址',
+    TORRENT_DOWNLOAD_LINK: '下載種子',
     PH_KEYWORD: '搜尋關鍵字',
     FILTER_KEYWORD: '過濾關鍵字',
     CLEAR_ALL_CONDITION: '清空所有條件',
@@ -413,10 +421,10 @@
     VIDEO_SIZE: '視訊檔案大小',
     UPLOAD_TIME: '上傳時間',
     SALE_EXPIRES_TIME: '過期',
-    TORRENT_STATUS_TOP_TITLE: '置頂推薦',
+    TORRENT_STATUS_TOP_TITLE: '特別推薦',
     TORRENT_STATUS_UNIQUE: '禁轉資源',
     TORRENT_STATUS_UNIQUE_TITLE: '禁轉資源，禁止轉發',
-    STATUS_TOP_KEY: '置頂',
+    STATUS_TOP_KEY: '特推',
     STATUS_UNIQUE_KEY: '禁轉',
     UPLOAD_SUBTITLE: '上傳字幕檔案',
     SUBTITLE_LIST: '字幕列表',
@@ -452,15 +460,15 @@
     ADMIN_BASIC_SET_VIP: '設定VIP',
     ADMIN_BASIC_EDIT_TAGS: '編輯標籤',
     ADMIN_BASIC_UNSET_VIP: '取消VIP',
-    ADMIN_BASIC_SET_TOP: '設為置頂',
-    ADMIN_BASIC_UNSET_TOP: '取消置頂',
+    ADMIN_BASIC_SET_TOP: '設為特推',
+    ADMIN_BASIC_UNSET_TOP: '取消特推',
     ADMIN_BASIC_SET_UNIQUE: '設為禁轉',
     ADMIN_BASIC_UNSET_UNIQUE: '取消禁轉',
     ADMIN_BASIC_TYPE_SET: '設定促銷',
     ADMIN_SALE_TYPE_SET: '種子促銷分類',
-    ADMIN_BASIC_RLEVEL_SET: '推薦級別',
+    ADMIN_BASIC_RLEVEL_SET: '置頂級別',
     ADMIN_UPLOAD_ACCESS: '上傳許可權',
-    ADMIN_RLEVEL_SET: '推薦級別設定',
+    ADMIN_RLEVEL_SET: '置頂級別設定',
     ADMIN_COLLECTION_COMMAND: '電影系列操作命令',
     ADMIN_COLLECTION_CREATE: '建立新系列',
     ADMIN_COLLECTION_ADDINTO: '將電影加入到系列',
@@ -479,7 +487,7 @@
     TORRENT_DELETE_SUCCESSFULLY: '種子刪除成功',
     TORRENT_DELETE_ERROR: '種子刪除失敗',
     TORRENT_DELETE_REASON: '請選擇或輸入一個刪除種子的理由給上傳者:',
-    TORRENT_ENTER_DELETE_REASON: '請輸入自定義刪除理由',
+    TORRENT_ENTER_DELETE_REASON: '請輸入自定義操作理由',
     TORRENT_DELETE_REASON_OVERVIEW: '種子簡介資訊缺少或者不完整',
     TORRENT_DELETE_REASON_NFO: '種子NFO資訊缺少或者不完整',
     TORRENT_DELETE_REASON_QUALITY: '種子資源質量太低下',
@@ -494,14 +502,14 @@
     TORRENT_SETSALETYPE_ERROR: '種子促銷分類設定失敗',
     TORRENT_SETREVIEWED_SUCCESSFULLY: '種子審核狀態設定成功',
     TORRENT_SETREVIEWED_ERROR: '種子審核狀態設定失敗',
-    TORRENT_SETRLEVEL_SUCCESSFULLY: '種子推薦級別設定成功',
-    TORRENT_SETRLEVEL_ERROR: '種子推薦級別設定失敗',
+    TORRENT_SETRLEVEL_SUCCESSFULLY: '種子置頂級別設定成功',
+    TORRENT_SETRLEVEL_ERROR: '種子置頂級別設定失敗',
     TORRENT_TOGGLE_HNR_SUCCESSFULLY: '改變種子HnR標籤成功',
     TORRENT_TOGGLE_HNR_FAILED: '改變種子HnR標籤失敗',
     TORRENT_TOGGLE_VIP_SUCCESSFULLY: '改變種子VIP標籤成功',
     TORRENT_TOGGLE_VIP_FAILED: '改變種子VIP標籤失敗',
-    TORRENT_TOGGLE_TOP_SUCCESSFULLY: '改變種子置頂狀態成功',
-    TORRENT_TOGGLE_TOP_FAILED: '改變種子置頂狀態失敗',
+    TORRENT_TOGGLE_TOP_SUCCESSFULLY: '改變種子特推狀態成功',
+    TORRENT_TOGGLE_TOP_FAILED: '改變種子特推狀態失敗',
     TORRENT_TOGGLE_UNIQUE_SUCCESSFULLY: '改變種子禁轉狀態成功',
     TORRENT_TOGGLE_UNIQUE_FAILED: '改變種子禁轉狀態失敗',
     TORRENT_SETTAGS_SUCCESSFULLY: '種子屬性標籤設定成功',
@@ -575,6 +583,9 @@
     SELECT_MAKER_GROUP: '&bull; 請選擇您上傳時使用的資源小組',
     MAKER_NULL: '無',
     UPLOADER_ANONYMOUS: '匿名上傳（用戶不會看到我是上傳者）',
+    SELECT_VIP_PROPERTY: '&bull; 请选择是否设置资源的 VIP 属性',
+    IS_VIP_RESOURCES_TIP: '提示：如果这是一个 VIP 资源，请选中下面的按钮，系统会自动将此资源归入 VIP 专区。',
+    IS_VIP_RESOURCES: '为此资源设置 VIP 属性',
     ANONYMOUS: '匿名',
     TORRENTS_SUBMIT_UPLOAD: '&bull; 同意上傳協議，並提交',
     SUBMIT_BUTTON: '已備妥，現在提交',
@@ -595,9 +606,13 @@
     ERROR_IMAGE_LINK_URL: '不可用的圖片連接地址',
     FILE_TYPE_ERROR: '檔案類別不被接受',
 
+    REDUPLICATE_CHECK: '&bull; 系統檢查到該資源已有下列不同版本存在',
+    REDUPLICATE_TIP: '提示：系統檢測到資源的其它版本，請確認您提交的是更優質的或是不重複的版本，否則，您的提交可能不會被審核通過或被管理員直接刪除，您需要繼續嗎？',
     ENTER_RESOURCE_TITLE: '&bull; 請輸入資源標題與描述',
     RESOURCE_TITLE: '資源標題',
     RESOURCE_SUB_TITLE: '資源副標題',
+    JOINED_COLLECTIONS: '所屬系列',
+    JOINED_ALBUMS: '所屬專輯',
     SELECT_RESOURCE_IMAGE: '&bull; 請選擇資源封面圖片',
     ENTER_RESOURCE_DETAIL_INFO: '&bull; 請輸入資源詳細資訊',
 
@@ -624,12 +639,12 @@
     TORRENT_STATUS_REVIEWED: '已審核',
     TORRENT_STATUS_DELETED: '已刪除',
     TORRENT_STATUS_ALL: '全部',
-    TORRENT_RECOMMEND_LEVEL: '推薦級別',
+    TORRENT_RECOMMEND_LEVEL: '置頂級別',
     TORRENT_RECOMMEND_LEVEL_ITEM: {
       LEVEL0: '無',
-      LEVEL1: '一級推薦',
-      LEVEL2: '二級推薦',
-      LEVEL3: '三級推薦'
+      LEVEL1: '一級置頂',
+      LEVEL2: '二級置頂',
+      LEVEL3: '三級置頂'
     },
 
     SET_ROLE_SUCCESSFULLY: '用戶角色許可權設定成功',
@@ -642,6 +657,19 @@
     SET_VIP_MONTHS_FAILED: '更新用戶vip狀態資料失敗',
     RESET_VIP_DATA_SUCCESSFULLY: '重置用戶vip狀態資料成功',
     RESET_VIP_DATA_FAILED: '重置用戶vip狀態資料失敗',
+
+    BANNED: {
+      CONFIRM_CANCEL: '取消',
+      CONFIRM_OK: '確定',
+      CONFIRM_HEADER_TEXT: 'Banned 確認',
+      CONFIRM_BODY_TEXT: '您確定要 ban 掉用戶 {{uname}} 嗎?',
+      REASON_TITLE: '請選擇或自定義一個理由通知用戶:',
+      REASON_ILLEGAL_SIGN_IN: '非法的註冊',
+      REASON_ACCOUNT_TRADE: '涉嫌帳戶交易',
+      REASON_EXAMINATION_NOT_FINISHED: '考核未完成',
+      REASON_VIOLATED_RULES: '違返站內用戶行為準則',
+      YOU_ARE_BANNED_FROM_INVITED_USER: '您邀請的用戶 {{uname}} 被禁止，他被禁止是因為：{{uReason | translate}}'
+    },
 
     SCORE_NUMBER: '積分數',
     SCORE_TITLE: '新增積分',
@@ -737,7 +765,7 @@
       MAKER_CREATE_FAILED: '資源小組建立失敗',
       OPER_LIST: 'Admin & Oper 列表',
       OPER_LIST_TOOLTIP: '<h4>提示:</h4>下面列出的所有用戶都是 <strong>{{site}}</strong> 站點的 Administrator 或 Operator, 如果您需要幫助, 請給{{sNameDesc | translate}}傳送 <strong><a href="/messages/send?to={{sName}}">訊息</a></strong> 或 <strong><a href="mailto:{{sMail}}">郵件</a></strong> 或者向下面列出的管理員直接傳送站內訊息.',
-      MAKER_LIST_TOOLTIP: '下面列出的所有資源小組都是入駐 <strong>{{site}}</strong> 的官方小組, 感謝這些壓制小組對站點做出的貢獻, 如果您想加入其中的小組, 請向小組創始人傳送站內訊息並歡迎您成為其中的一份子.',
+      MAKER_LIST_TOOLTIP: '下面列出的所有資源小組都是入駐<strong>{{site}}</strong> 的官方小組, 感謝這些資源小組為站點做出的貢獻, 如果您也想加入我們的小組, 請向各小組創始人發送站內消息，我們熱忱地歡迎您成為其中的一份子.',
       GROUP_FOUNDER: '創始人: ',
       BTN_EDIT_DESC: '編輯簡介',
       BTN_ADD_USER: '新增新成員',
@@ -754,6 +782,7 @@
       DELETE_FAILED: '資源小組刪除失敗',
       RATING_SUCCESSFULLY: '為資源小組評分成功',
       RATING_FAILED: '為資源小組評分失敗',
+      ALREADY_RATING: '您先前已為此小組評分',
       ADD_MEMBER_TITLE: '新增小組成員',
       ADD_MEMBER_SUCCESSFULLY: '新增小組成員成功',
       ADD_MEMBER_FAILED: '新增小組成員失敗',
@@ -789,8 +818,8 @@
       DELETE_CONFIRM_BODY_TEXT: '您確定要刪除這個電影系列?',
       DELETE_SUCCESSFULLY: '電影系列刪除成功',
       DELETE_FAILED: '電影系列刪除失敗',
-      SETRLEVEL_SUCCESSFULLY: '修改系列的推薦級別成功',
-      SETRLEVEL_ERROR: '修改系列的推薦級別失敗',
+      SETRLEVEL_SUCCESSFULLY: '修改系列的置頂級別成功',
+      SETRLEVEL_ERROR: '修改系列的置頂級別失敗',
       REMOVE_CONFIRM_OK: '移除',
       REMOVE_CONFIRM_CANCEL: '取消',
       REMOVE_CONFIRM_HEADER_TEXT: '移除確認',
@@ -828,8 +857,8 @@
       DELETE_CONFIRM_BODY_TEXT: '您確定要刪除這個資源專輯?',
       DELETE_SUCCESSFULLY: '資源專輯刪除成功',
       DELETE_FAILED: '資源專輯刪除失敗',
-      SETRLEVEL_SUCCESSFULLY: '修改專輯的推薦級別成功',
-      SETRLEVEL_ERROR: '修改專輯的推薦級別失敗',
+      SETRLEVEL_SUCCESSFULLY: '修改專輯的置頂級別成功',
+      SETRLEVEL_ERROR: '修改專輯的置頂級別失敗',
       REMOVE_CONFIRM_OK: '移除',
       REMOVE_CONFIRM_CANCEL: '取消',
       REMOVE_CONFIRM_HEADER_TEXT: '移除確認',
@@ -860,6 +889,7 @@
     BUTTON_SELECT_PICTURE: '選擇圖片',
     BUTTON_USE_THIS_PICTURE: '應用圖片',
     BUTTON_CANCEL: '取消',
+    BUTTON_CLOSE: '關閉',
     BUTTON_SAVE: '儲存',
     BUTTON_SET: '設定',
     BUTTON_OK: '確定',
@@ -959,7 +989,7 @@
     },
 
     //user status
-    STATUS_ACCOUNT: '帳戶狀態',
+    STATUS_ACCOUNT: '我的帳戶狀態',
     STATUS_UPLOADED: '我上傳的種子',
     STATUS_SEEDING: '正在做種的種子',
     STATUS_DOWNLOADING: '正在下載的種子',
@@ -988,6 +1018,7 @@
       BTN_VIEW_USER_DATA_CENTER: '數據中心',
       BTN_EDIT: '編輯',
       BTN_REMOVE: '刪除',
+      BTN_ADD_MEDAL: '頒發勳章',
       PICTURE: '頭像',
       RESET_DEFAULT_PICTURE: '重置為預設圖片',
       ADD_VIP_MONTHS: '+ VIP一個月',
@@ -1211,6 +1242,10 @@
     USER_UPLOADED_FLAG: '{{name}} 的上傳量',
     USER_DOWNLOADED_FLAG: '{{name}} 的下載量',
     USER_SCORE_LEVEL: '{{name}} 的積分等級',
+    USER_RATIO_FLAG: '{{name}} 的分享率',
+    USER_MEDAL_FLAG: '{{name}} 的勳章總數',
+    USER_SEEDING_FLAG: '{{name}} 的當前做種數',
+    USER_LEECHING_FLAG: '{{name}} 當前下載數',
 
     //traces
     ADMIN_TRACES_LIST: '系統日誌',
@@ -1456,6 +1491,71 @@
       }
     },
 
+    // favorites
+    FAVORITES: {
+      NAME: '礦車',
+      DESC: '* 您的{{"FAVORITES.NAME" | translate}}相當於您的收藏夾，您只需要在種子列表頁點擊 [加入] 按鈕將您喜歡的資源加入進來，系統會自動為您生一個RSS連接地址，如果您把下面這個地址加入到您的下載客戶端並設置為自動下載，您的客戶端會定時查詢您的收藏並自動開始下載最新加入的種子。 \n* 為節省系統資源，RSS只會向客戶端返回最近加入的 {{rssNumber}} 條收藏記錄，但服務器會保留您所有收藏條目，為您在系統更新後或數據丟失後的重新下載提供方便。請注意，此RSS地址包含您個人的敏感信息，請不要共享給其它人。',
+      TORRENT_TO_FAVORITE_TITLE: '添加種子到到您的{{"FAVORITES.NAME" | translate}}',
+      TORRENT_REMOVE_FAVORITE_TITLE: '移出種子從您的{{"FAVORITES.NAME" | translate}}',
+      ADD_FAVORITE_SUCCESSFULLY: '添加種子到您的{{"FAVORITES.NAME" | translate}}成功',
+      ADD_FAVORITE_ERROR: '添加種子到您的{{"FAVORITES.NAME" | translate}}失敗',
+      REMOVE_FAVORITE_SUCCESSFULLY: '從您的 {{"FAVORITES.NAME" | translate}} 中移除種子成功',
+      REMOVE_FAVORITE_ERROR: '從您的 {{"FAVORITES.NAME" | translate}} 中移除種子失敗',
+      FAVORITES_IS_LOADING: '正在加載您的{{"FAVORITES.NAME" | translate}} ...',
+      FAVORITES_IS_EMPTY: '您的{{"FAVORITES.NAME" | translate}}裡還沒有任何資源'
+    },
+
+    // medals wall
+    MEDALS: {
+      MEDALS_TITLE: '勳章牆',
+      TYPES_COUNT: '勳章類型',
+      MEDALS_OPENED_COUNT: '勳章開放數',
+      MEDALS_AWARD_COUNT: '勳章頒發數',
+      SELECT_MEDAL_TO_USER: '請選擇要頒發的勳章 - {{uname}}',
+      ADD_SUCCESSFULLY: '給用戶添加勳章成功',
+      ADD_FAILED: '給用戶添加勳章失敗',
+      REMOVE_SUCCESSFULLY: '移除用戶勳章成功',
+      REMOVE_FAILED: '移除用戶勳章失敗',
+      MEDALS_OVERVIEW: '勳章是用戶身份及為站點所做的貢獻的標識，勳章頒發分為系統自動頒發、管理員幫助頒發與用戶自助頒發三種，自助頒發的勳章需要用戶自已根據相應的條件自助申領。不同的勳章對應有不同的系統待遇，站點也會不定期的針對不同的勳章群體用戶舉辦豐富多樣的活動，敬請大家期待。',
+      CMD_LIST_USER: '查看用戶',
+      CMD_REQUEST: '申請勳章',
+      HELP_CONDITION: '申請條件',
+      OWNED_USERS: '擁有用戶',
+      USERS_IS_LOADING: '正在裝載用戶列表，請稍候...',
+      USERS_IS_EMPTY: '還沒有任何用戶擁有此勳章',
+      REQUEST_CONFIRM_CANCEL: '取消',
+      REQUEST_CONFIRM_OK: '確定',
+      REQUEST_CONFIRM_HEADER_TEXT: '申請勳章',
+      REQUEST_CONFIRM_BODY_TEXT: '您確定要使用 {{score}} 積分來申請這枚勳章嗎?',
+      REQUEST_SUCCESSFULLY: '勳章申請成功',
+      REQUEST_ERROR: '勳章申請失敗',
+      AWARD_AT: '授於',
+      CATS: {
+        WORKERS: '工作人員類勳章',
+        EVENTS: '特別事件類勳章',
+        COMMEMORATIVE: '站點紀念類勳章'
+      },
+      PASSHELP: {
+        SYS: '系統自動頒發',
+        ADMIN: '管理員頒發',
+        SELF: '用戶自助申請'
+      },
+      DESC: {
+        ROOT: '系統管理員勳章',
+        SITE_BEGIN: '網站開張紀念勳章',
+        CLOSE_BETA: '網站內測勳章'
+      },
+      FOOTERSTRING: {
+        ROOT: '系統',
+        SITE_BEGIN: '週年',
+        CLOSE_BETA: '2018'
+      },
+      HEADERSTRING: {
+        SITE_BEGIN: '0',
+        CLOSE_BETA: '內測'
+      }
+    },
+
     // data center
     DATA_CENTER: {
       ITEM_SCORE: '積分數據分析',
@@ -1486,11 +1586,9 @@
     SCORE_LOG: {
       DEFAULT_ACTION: '未知事件獲得的積分',
       ADMIN_MODIFY: '管理員 <a href=/userinfo/{{uid}}>{{uname}}</a> 修改積分',
-      TRANSFER_SCORE_INTO_INVITER_FROM: '結算上個月的積分給您的邀請人 <a href=/userinfo/{{uid}}>{{uname}}</a>',
-      TRANSFER_SCORE_INTO_INVITER_TO: '系統發放被邀請用戶 <a href=/userinfo/{{uid}}>{{uname}}</a> 上個月的積分獎勵',
       UPLOAD_TORRENT: '上傳的種子被審核通過 <a href=/torrents/{{tid}}>{{tid}}</a>',
       UPLOAD_TORRENT_BE_DELETED: '上傳的種子被刪除 <a href=/torrents/{{tid}}>{{tid}}</a>',
-      UPLOAD_TORRENT_BE_RECOMMEND: '上傳的種子被推薦 <a href=/torrents/{{tid}}>{{tid}}</a>',
+      UPLOAD_TORRENT_BE_RECOMMEND: '上傳的種子被置頂 <a href=/torrents/{{tid}}>{{tid}}</a>',
       UPLOAD_SUBTITLE: '為種子上傳字幕文件 <a href=/torrents/{{tid}}>{{tid}}</a>',
       UPLOAD_SUBTITLE_BE_DELETED: '上傳的字幕文件被刪除 <a href=/torrents/{{tid}}>{{tid}}</a>',
       THUMBS_UP_SCORE_OF_TORRENT_FROM: '為種子點贊 <a href=/torrents/{{tid}}>{{tid}}</a>',
@@ -1502,6 +1600,7 @@
       REQUEST_ACCEPT_TO: '您的響應被求種請求者接受 <a href=/requests/{{rid}}>{{rid}}</a>',
       SCORE_EXCHANGE_INVITATION: '兌換了一張邀請函',
       SCORETO_REMOVE_WARNING: '移除了一個 H&R 警告 <a href=/torrents/{{tid}}>{{tid}}</a>',
+      SCORETO_REQUEST_MEDAL: '申請勳章: {{medalDesc | translate}}',
       ACTIVE_IDLE_ACCOUNT: '重新激活帳戶狀態',
       DAILY_CHECK_IN: '每日簽到',
       SEED_TIMED: '做種時間獲得的積分 <a href=/torrents/{{tid}}>{{tid}}</a>',
@@ -1515,7 +1614,7 @@
       BAD_REQUEST: '請求錯誤',
       FORBIDDEN: '請求禁止',
       MADE_BAD_REQUEST: '您發起了一個無效的請求',
-      NOT_AUTHORIZED_THIS: '您無權訪問此資源',
+      NOT_AUTHORIZED_THIS: '您無權訪問此資源，如果您的 session 或 cookie 已過期，請 <a href="/authentication/signin">重新登錄</a>。',
       NOT_FOUND: '無法訪問',
       PAGE_NOT_FOUND: '沒有找到頁面或資源',
       ACCESS_DENY: '您的當前IP被限制訪問此資源，如需幫助請給{{sNameDesc | translate}}傳送 <strong><a href="/messages/send?to={{sName}}">訊息</a></strong> 或 <strong><a href="mailto:{{sMail}}">郵件</a></strong>.'
@@ -1660,7 +1759,7 @@
         DTS_X: 'DTS:X',
         ATMOS: 'Atmos',
         DTS_HD: 'DTS-HD',
-        TRUE_HD: 'True-HD',
+        TRUE_HD: 'TrueHD',
         DTS: 'DTS',
         AC3: 'AC-3',
         AAC: 'AAC'
@@ -1809,14 +1908,17 @@
     //admin operate user account history message
     HISTORY: {
       ADMIN_UPDATE_USER_ROLE: '`{{by.displayName}}` 改變帳戶角色為： `{{role}}`',
-      ADMIN_UPDATE_USER_STATUS: '`{{by.displayName}}` 改變帳戶狀態為: `{{status}}`',
+      ADMIN_UPDATE_USER_STATUS: '`{{by.displayName}}` 改變帳戶狀態為: `{{status}}`，理由: {{reason | translate}}',
       ADMIN_UPDATE_USER_SCORE: '`{{by.displayName}}` 修改帳戶積分: `{{score}}`',
       ADMIN_UPDATE_USER_UPLOADED: '`{{by.displayName}}` 修改帳戶上傳量: `{{uploaded | bytes:2}}`',
       ADMIN_UPDATE_USER_DOWNLOADED: '`{{by.displayName}}` 修改帳戶下載量: `{{downloaded | bytes:2}}`',
       ADMIN_UPDATE_USER_VIP_DATA: '`{{by.displayName}}` 修改帳戶 VIP 數據: `{{months}}` 個月',
       ADMIN_PRESENT_USER_INVITATIONS: '`{{by.displayName}}` 贈送 `{{numbers}}` 個官方邀請函, 有效期 `{{days}}` 天',
       ADMIN_REMOVE_USER_HNR_WARNING: '`{{by.displayName}}` 移除 H&R 警告, complete id: `{{complete}}`',
-      ADMIN_CREATE_USER_MAKER_GROUP: '`{{by.displayName}}` 創建用戶資源小組: `-={{name}}=-`'
+      ADMIN_CREATE_USER_MAKER_GROUP: '`{{by.displayName}}` 創建用戶資源小組: `-={{name}}=-`',
+      ADMIN_ADD_USER_MEDAL: '`{{by.displayName}}` 添加用戶勳章: `{{medalName}}`',
+      ADMIN_REMOVE_USER_MEDAL: '`{{by.displayName}}` 移除用戶勳章: `{{medalName}}`',
+      ADMIN_BAN_USER_INVITER: '`{{by.displayName}}` 改變帳戶狀態為: `{{status}}`, 理由: 邀請的用戶[{{uname}}]因為[{{reason | translate}}]被禁止'
     },
 
     //server returned string
@@ -1838,7 +1940,7 @@
       RESET_PASSWORD_TO_FREQUENT: '密碼重置操作過於頻繁, 您在 {{hours}} 小時內只能操作一次, 下次可操作時間為: {{nextTime | date: "yyyy-MM-dd HH:mm:ss"}}',
       INVALID_USERNAME: '無效的用戶名稱!',
       INVALID_PASSWORD: '無效的密碼!',
-      YOU_ARE_BANNED: '您已被伺服器禁止(banned)!',
+      YOU_ARE_BANNED: '您已被伺服器禁止(banned)，被禁止的理由為：{{reason}}',
       ACCOUNT_IS_NOT_ACTIVATED: '您的帳戶未啟用, 請啟用後再試!',
       ONLY_VIP_CAN_DOWNLOAD: '該種子只有VIP用戶才可以下載',
       CAN_NOT_DOWNLOAD_BANNED: '下載失敗, 您被伺服器禁止(banned)',
@@ -1858,7 +1960,10 @@
       UPLOAD_ACCESS_DENY: '當前系統只接受資源製作小組上傳種子',
       READ_TORRENT_FILE_FAILD: '種子檔案解析錯誤，請檢查您的種子檔案，看是否缺少某些必要資訊',
       MOVE_TORRENT_FILE_ERROR: '種子檔案移動錯誤，請不要快速重複進行提交操作或者上傳的種子檔案已丟失',
-      YOU_ALREADY_CHECK_IN: '您今天已經完成簽到了，不能重復簽到喔！'
+      YOU_ALREADY_CHECK_IN: '您今天已經完成簽到了，不能重復簽到喔！',
+      USER_ALREADY_HAS_THIS_MEDAL: '該用戶已經擁有了這枚勳章',
+      USER_HAS_NOT_THIS_MEDAL: '該用戶還沒有這枚勳章',
+      TORRENT_ALREADY_IN_FAVORITES: '該種子已經存在於你的收藏夾'
     },
 
     //server message string, content string support markdown and emoji
@@ -1929,8 +2034,8 @@
       TITLE_TORRENT_HNR_CHANGED: '上傳的種子 H&R 狀態改變',
       CONTENT_TORRENT_HNR_CHANGED: '### H&R 狀態改變! \n 您上傳的種子 [{{torrent_file_name}}](/torrents/{{torrent_id}}) H&R 狀態已經由管理員用戶 [{{by_name}}](/userinfo/{{by_id}}) 修改, 當前狀態為: **{{hnr_status}}**.',
 
-      TITLE_TORRENT_TOP_CHANGED: '上傳的種子 置頂 狀態改變',
-      CONTENT_TORRENT_TOP_CHANGED: '### 置頂 狀態改變! \n 您上傳的種子 [{{torrent_file_name}}](/torrents/{{torrent_id}}) 置頂 狀態已經由管理員用戶 [{{by_name}}](/userinfo/{{by_id}}) 修改, 當前狀態為: **{{top_status}}**.',
+      TITLE_TORRENT_TOP_CHANGED: '上傳的種子 特推 狀態改變',
+      CONTENT_TORRENT_TOP_CHANGED: '### 特推 狀態改變! \n 您上傳的種子 [{{torrent_file_name}}](/torrents/{{torrent_id}}) 特推 狀態已經由管理員用戶 [{{by_name}}](/userinfo/{{by_id}}) 修改, 當前狀態為: **{{top_status}}**.',
 
       TITLE_TORRENT_UNIQUE_CHANGED: '上傳的種子 禁轉 狀態改變',
       CONTENT_TORRENT_UNIQUE_CHANGED: '### 禁轉 狀態改變! \n 您上傳的種子 [{{torrent_file_name}}](/torrents/{{torrent_id}}) 禁轉 狀態已經由管理員用戶 [{{by_name}}](/userinfo/{{by_id}}) 修改, 當前狀態為: **{{unique_status}}**.',
@@ -1961,7 +2066,7 @@
     },
 
     SITE_NOTICE: {
-      GLOBAL_SALES_NOTICE: '### 重要通知! \n :radio: **新年快樂 2018**, **{{site_name}}** 新年促銷活動已準備就緒, 促銷活動類別為 <span class="sale_key">**{{sale_value}}**</span> , 活動將開始於 **{{sale_start_at | date: "yyyy-MM-dd HH:mm"}}** 並持續 <span class="sale_key">**{{sale_days}}**</span> 天, 結束於 **{{sale_end_at | date: "yyyy-MM-dd HH:mm"}}**, 並感謝所有會員用戶一直以來給予我們的幫助與支援!',
+      GLOBAL_SALES_NOTICE: '### 重要通知! \n :radio: **開門大吉**, **{{site_name}}** 開門全免禮包已以準備就緒，全免級別為<span class="sale_key" >**{{sale_value}}**</span> , 活動將開始於**{{sale_start_at | date: "yyyy-MM-dd HH:mm"}}** 並持續<span class="sale_key" >**{{sale_days}}**</span> 天, 結束於**{{sale_end_at | date: "yyyy-MM-dd HH:mm"}}**, 並感謝所有會員用戶的加入並期待給予我們更多的幫助與支持!',
       EXAMINATION_NOTICE: '### 重要通知! \n :radio: **{{site_name}}** 將從 **{{examination_start_at | date: "yyyy-MM-dd HH:mm"}}** 到 **{{examination_end_at | date: "yyyy-MM-dd HH:mm"}}** 進行一次新的增量考核, 增量資料要求: 上傳 **{{data_upload | bytes:2}}**, 下載 **{{data_download | bytes:2}}**, 積分 **{{data_score}}**, 請各位會員安排好自已的時間，並祝您順利通過這次考核. 所有 **vip** 用戶以及最近 **{{join_days}}** 天內註冊的新用戶免考, 考核未達標的用戶帳號將會被禁止.<small>[更多詳情請看這裡]({{detail_url}}).</small>',
       EXAMINATION_STATUS: '### 考核狀態資訊: \n <dl class="dl-horizontal"><dt>考核時間區間:</dt><dd>{{examination_start_at | date: "yyyy-MM-dd HH:mm"}} - {{examination_end_at | date: "yyyy-MM-dd HH:mm"}}</dd><dt>增量上傳資料:</dt><dd>{{data_upload | bytes:2}}, 已完成 {{finished_upload | bytes:2}}</dd><dt>增量下載資料:</dt><dd>{{data_download | bytes:2}}, 已完成 {{finished_download | bytes:2}}</dd><dt>增量積分:</dt><dd>{{data_score | score: 2}}, 已完成 {{finished_score | score: 2}}</dd><dt>當前考核狀態:</dt><dd>{{data_status | translate}}</dd><dt></dt><dd><small>[更多詳情]({{detail_url}})</small></dd></dl>',
       EXAMINATION_FINISHED: '已通過',

@@ -123,6 +123,14 @@ exports.update = function (req, res) {
           site_name: appConfig.name
         });
       }
+
+      //create trace log
+      traceLogCreate(req, traceConfig.action.adminMakerEdit, {
+        maker: maker._id,
+        name: req.body.name,
+        desc: req.body.desc,
+        upload_access: req.body.upload_access
+      });
     }
   });
 };
@@ -196,7 +204,7 @@ exports.rating = function (req, res) {
   });
   if (exist) {
     return res.status(422).send({
-      message: 'ALREADY_RATING'
+      message: 'ABOUT.ALREADY_RATING'
     });
   } else {
     maker._ratings.push(rat);

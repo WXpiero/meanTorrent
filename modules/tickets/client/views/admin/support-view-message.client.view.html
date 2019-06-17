@@ -26,7 +26,7 @@
                                 <span class="reply-comment-header-time-text">{{vm.ticket.createdAt | date:'yyyy-MM-dd HH:mm:ss'}}</span>
 
                                 <div class="reply-comment-header-command pull-right">
-                                    <i class="fa fa-pencil-square-o" aria-hidden="true"
+                                    <i class="fa fa-edit" aria-hidden="true"
                                        title="{{'FORUMS.TITLES.TOPIC_EDIT' | translate}}"
                                        ng-show="vm.canEdit() || vm.isOwner(vm.ticket)"
                                        ng-click="vm.beginEditTicket(vm.ticket)"></i>
@@ -42,9 +42,9 @@
                                  ng-bind-html="vm.getTicketContent(vm.ticket)">
                             </div>
                             <div class="ticket-buttons text-right" ng-if="vm.ticket.status!='solved'">
-                                <a class="btn btn-sm btn-width-100" mouse-enter-toggle-class="btn-success" base-class="btn-mt-o"
+                                <a class="btn btn-sm btn-min-width-100" mouse-enter-toggle-class="btn-success" base-class="btn-mt-o"
                                    ng-if="!vm.ticket.handler" ng-click="vm.handleTicket(vm.ticket)">{{'SUPPORT.LINK_HANDLE' | translate}}</a>
-                                <a class="btn btn-sm btn-width-100" mouse-enter-toggle-class="btn-success" base-class="btn-mt-o"
+                                <a class="btn btn-sm btn-min-width-100" mouse-enter-toggle-class="btn-success" base-class="btn-mt-o"
                                    ng-if="vm.ticket.status!='solved'" ng-click="vm.solvedTicket(vm.ticket)">{{'SUPPORT.LINK_SOLVED' | translate}}</a>
                             </div>
                         </div>
@@ -70,7 +70,7 @@
                                 <span class="reply-comment-header-time-text">{{rep.createdAt | date:'yyyy-MM-dd HH:mm:ss'}}</span>
 
                                 <div class="reply-comment-header-command pull-right">
-                                    <i class="fa fa-pencil-square-o" aria-hidden="true"
+                                    <i class="fa fa-edit" aria-hidden="true"
                                        title="{{'FORUMS.TITLES.REPLY_EDIT' | translate}}"
                                        ng-show="vm.canEdit() || vm.isOwner(rep)"
                                        ng-click="vm.beginEditReply(rep)"></i>
@@ -130,7 +130,7 @@
                                 {{ 'MARKDOWN_LINK' | translate }}
                             </a>
                         </div>
-                        <button type="submit" class="btn btn-success btn-width-100 pull-right">{{'FORUMS.BTN_SUBMIT_REPLY' | translate}}
+                        <button type="submit" class="btn btn-success btn-min-width-100 pull-right">{{'FORUMS.BTN_SUBMIT_REPLY' | translate}}
                         </button>
                     </form>
                 </div>

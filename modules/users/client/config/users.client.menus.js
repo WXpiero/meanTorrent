@@ -40,10 +40,17 @@
       faClass: 'text-mt'
     });
 
+    menuService.addSubMenuItem('mt-user', 'status', {
+      title: 'MENU_TORRENTS_STATUS',
+      state: 'status.torrents.uploaded',
+      faIcon: 'fa-hand-holding-seedling',
+      faClass: 'text-mt'
+    });
+
     menuService.addSubMenuItem('mt-user', 'score', {
       title: 'MENU_SCORE_LEVEL',
       state: 'score.detail',
-      faIcon: 'fa-ticket',
+      faIcon: 'fa-money-check-alt',
       faClass: 'text-mt'
     });
 

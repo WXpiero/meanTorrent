@@ -171,7 +171,7 @@
             &:last-child {
                 padding-right: 5px !important;
                 .fa {
-                    right: 10px;
+                    right: 8px;
                 }
             }
             img {
@@ -185,7 +185,7 @@
             .fa {
                 cursor: pointer;
                 position: absolute;
-                right: 5px;
+                right: 3px;
                 top: 5px;
                 text-shadow: 0 0 0.1em #fff,-0 -0 0.1em #fff;
                 &:hover {
@@ -555,3 +555,25 @@ pre.prettyprint {
 
 /* csslint ignore:end */
 //popup overlay end -------------------------------------------
+
+.joined-coll-list,
+.joined-album-list {
+    font-weight: 500;
+    margin-bottom: 0;
+}
+
+.reduplicate-torrents-list {
+    .reduplicate-item {
+        font-weight: 500;
+        .reduplicate-item-info {
+            font-weight: 400;
+            color: #999;
+            font-size: 12px;
+        }
+    }
+    li {
+        &:not(:last-child) {
+            margin-bottom: 10px;
+        }
+    }
+}

@@ -51,8 +51,8 @@
                 <div class="col-xs-12 col-sm-6 col-md-4">
                     <select class="form-control" ng-model="vm.selectedType" ng-change="vm.onTorrentTypeChanged();">
                         <option ng-repeat="t in vm.torrentType.value | filter:{enable: true}"
-                                ng-if="t.role=='user' || (t.role=='vip' && (vm.user.isVip || vm.user.isOper))"
-                                value="{{t.value}}">{{'MENU_TORRENTS_SUB.'+t.name | translate}}
+                                ng-if="t.role=='user' || (t.role=='vip' && (vm.user.isVip || vm.user.makers.length > 0 || vm.user.isOper))"
+                                value="{{t.value}}">{{'MENU_TORRENTS_SUB.'+t.name | translate}} {{t.role=='vip' ? '(VIP)' : ''}}
                         </option>
                     </select>
                 </div>
@@ -61,7 +61,7 @@
 
         <div ng-show="vm.selectedType" ng-include="vm.getIncludeUploadTemplateID(vm.selectedType);"></div>
 
-        <div class="row margin-bottom-40 margin-top-50" ng-show="vm.showAgreeAndSubmit || vm.customTorrent.detail">
+        <div class="row margin-bottom-40 margin-top-40" ng-show="vm.showAgreeAndSubmit || vm.customTorrent.detail">
             <div class="col-xs-12">
                 <legend class="small-legend" translate="SELECT_MAKER_GROUP"></legend>
                 <div class="col-xs-12 col-sm-6 col-md-4">
@@ -85,7 +85,20 @@
                 </div>
             </div>
 
-            <div class="col-md-12 col-sm-12 col-xs-12 margin-top-50">
+            <div class="col-md-12 col-sm-12 col-xs-12 margin-top-40"
+                 ng-if="vm.selectedTypeRole(vm.selectedType)=='user' && (vm.user.isVip || vm.user.makers.length > 0 || vm.user.isOper)">
+                <legend class="small-legend" translate="SELECT_VIP_PROPERTY"></legend>
+                <div class="col-xs-12">
+                    <span class="text-danger">{{'IS_VIP_RESOURCES_TIP' | translate}}</span>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="vm.isVipProperty"> {{'IS_VIP_RESOURCES' | translate}}
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12 col-sm-12 col-xs-12 margin-top-40">
                 <legend class="small-legend" translate="TORRENTS_SUBMIT_UPLOAD"></legend>
                 <div class="col-sm-6 col-sm-offset-3 text-center">
                     <label class="checkbox text-uppercase">
@@ -164,11 +177,11 @@
         </div>
 
         <div class="bottom-control">
-            <button class="btn btn-success btn-width-100"
+            <button class="btn btn-success btn-min-width-100"
                     ng-disabled="!vm.search.sid"
                     ng-click="vm.onSelectResult()">{{ 'BTN_SELECT' | translate }}
             </button>
-            <button class="btn btn-default btn-width-100" ng-click="vm.hideSearchPopup();">{{ 'BUTTON_CANCEL' | translate }}</button>
+            <button class="btn btn-default btn-min-width-100" ng-click="vm.hideSearchPopup();">{{ 'BUTTON_CANCEL' | translate }}</button>
         </div>
     </div>
 
@@ -182,7 +195,7 @@
                 <div class="col-sm-7 col-md-6 col-lg-5">
                     <div class="input-group">
                         <div class="input-group-btn">
-                            <button class="btn btn-default" ng-click="vm.beginSearchFromTMDB($event)">
+                            <button class="btn btn-primary" ng-click="vm.beginSearchFromTMDB($event)">
                                 {{ 'SEARCH_FROM_TMDB' | translate}}
                             </button>
                         </div>
@@ -218,7 +231,7 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <legend class="small-legend" translate="TMDB_RESOURCE_INFO"></legend>
                     <div class="col-md-3 col-sm-3 col-xs-12 upload-info-img">
-                        <img ng-src="{{vm.tmdbConfig.posterImgBaseUrl_500}}{{vm.movieinfo.poster_path}}" class="img-thumbnail">
+                        <img id="img-tmdb" ng-src="{{vm.tmdbConfig.posterImgBaseUrl_500}}{{vm.movieinfo.poster_path}}" class="img-thumbnail">
                     </div>
                     <div class="col-md-9 col-sm-9 col-xs-12">
                         <dl class="dl-horizontal">
@@ -295,16 +308,46 @@
             </div>
         </div>
 
+        <div class="row margin-bottom-40" ng-show="vm.showReduplicateCheck">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <legend class="small-legend" translate="REDUPLICATE_CHECK"></legend>
+                <div class="col-md-12">
+                    <ul class="reduplicate-torrents-list">
+                        <li class="reduplicate-item" ng-repeat="t in vm.ReduplicateTorrents">
+                            {{vm.TGI.getTorrentCustomTitle(t)}}
+                            <div class="reduplicate-item-info">{{vm.TGI.getTorrentCustomSubTitle(t)}}</div>
+                            <div class="reduplicate-item-info">{{t.torrent_filename}}</div>
+                        </li>
+                    </ul>
+                    <div ng-show="!vm.showResourceTitleInput">
+                        <div class="alert alert-warning text-center margin-top-20" role="alert">
+                            <span translate="REDUPLICATE_TIP"></span>
+                        </div>
+                        <div class="text-center margin-top-20">
+                            <ul class="list-unstyled list-inline">
+                                <li>
+                                    <button class="btn btn-default width-120" ng-click="vm.reduplicateContinue()">{{'BTN_CONTINUE' | translate}}</button>
+                                </li>
+                                <li>
+                                    <button class="btn btn-default width-120" ng-click="vm.cancel()">{{'BTN_CANCEL' | translate}}</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="row margin-bottom-40" ng-show="vm.showResourceTitleInput">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <legend class="small-legend" translate="ENTER_RESOURCE_TITLE"></legend>
                 <div class="col-md-10 col-sm-10">
                     <input type="text" class="form-control" ng-model="vm.customTorrent.title" placeholder="{{ 'RESOURCE_TITLE' | translate}}"
-                           maxlength="{{vm.inputLengthConfig.uploadTorrentTitleLength}}" autofocus>
+                           maxlength="{{vm.inputLengthConfig.uploadTorrentTitleLength}}" ng-change="vm.onCustomTitleChanged()" autofocus>
                 </div>
                 <div class="col-md-10 col-sm-10 margin-top-10">
                     <input type="text" class="form-control" ng-model="vm.customTorrent.subtitle" placeholder="{{ 'RESOURCE_SUB_TITLE' | translate}}"
-                           maxlength="{{vm.inputLengthConfig.uploadTorrentSubTitleLength}}">
+                           maxlength="{{vm.inputLengthConfig.uploadTorrentSubTitleLength}}" ng-change="vm.onCustomSubTitleChanged()">
                 </div>
             </div>
         </div>
@@ -381,7 +424,7 @@
                 <div class="col-sm-7 col-md-6 col-lg-5">
                     <div class="input-group">
                         <div class="input-group-btn">
-                            <button class="btn btn-default" ng-click="vm.beginSearchFromTMDB($event)">
+                            <button class="btn btn-primary" ng-click="vm.beginSearchFromTMDB($event)">
                                 {{ 'SEARCH_FROM_TMDB' | translate}}
                             </button>
                         </div>
@@ -417,7 +460,7 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <legend class="small-legend" translate="TMDB_RESOURCE_INFO"></legend>
                     <div class="col-md-3 col-sm-3 col-xs-12">
-                        <img ng-src="{{vm.tmdbConfig.posterImgBaseUrl_500}}{{vm.tvinfo.poster_path}}" class="img-thumbnail">
+                        <img id="img-tmdb" ng-src="{{vm.tmdbConfig.posterImgBaseUrl_500}}{{vm.tvinfo.poster_path}}" class="img-thumbnail">
                     </div>
                     <div class="col-md-9 col-sm-9 col-xs-12">
                         <dl class="dl-horizontal">
@@ -485,7 +528,51 @@
                 </div>
             </div>
 
-            <div class="row margin-bottom-20">
+            <div class="row margin-bottom-40" ng-show="vm.showReduplicateCheck">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <legend class="small-legend" translate="REDUPLICATE_CHECK"></legend>
+                    <div class="col-md-12">
+                        <ul class="reduplicate-torrents-list">
+                            <li class="reduplicate-item" ng-repeat="t in vm.ReduplicateTorrents">
+                                {{vm.TGI.getTorrentCustomTitle(t)}}
+                                <div class="reduplicate-item-info">{{vm.TGI.getTorrentCustomSubTitle(t)}}</div>
+                                <div class="reduplicate-item-info">{{t.torrent_filename}}</div>
+                            </li>
+                        </ul>
+                        <div ng-show="!vm.showResourceTitleInput">
+                            <div class="alert alert-warning text-center margin-top-20" role="alert">
+                                <span translate="REDUPLICATE_TIP"></span>
+                            </div>
+                            <div class="text-center margin-top-20">
+                                <ul class="list-unstyled list-inline">
+                                    <li>
+                                        <button class="btn btn-default width-120" ng-click="vm.reduplicateContinue()">{{'BTN_CONTINUE' | translate}}</button>
+                                    </li>
+                                    <li>
+                                        <button class="btn btn-default width-120" ng-click="vm.cancel()">{{'BTN_CANCEL' | translate}}</button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row margin-bottom-40" ng-show="vm.showResourceTitleInput">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <legend class="small-legend" translate="ENTER_RESOURCE_TITLE"></legend>
+                    <div class="col-md-10 col-sm-10">
+                        <input type="text" class="form-control" ng-model="vm.customTorrent.title" placeholder="{{ 'RESOURCE_TITLE' | translate}}"
+                               maxlength="{{vm.inputLengthConfig.uploadTorrentTitleLength}}" ng-change="vm.onCustomTitleChanged()" autofocus>
+                    </div>
+                    <div class="col-md-10 col-sm-10 margin-top-10">
+                        <input type="text" class="form-control" ng-model="vm.customTorrent.subtitle" placeholder="{{ 'RESOURCE_SUB_TITLE' | translate}}"
+                               maxlength="{{vm.inputLengthConfig.uploadTorrentSubTitleLength}}" ng-change="vm.onCustomSubTitleChanged()">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row margin-bottom-20" ng-show="vm.showEpisodesInput">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <legend class="small-legend" translate="SELECT_SE"></legend>
                     <dl class="dl-horizontal">
@@ -506,39 +593,22 @@
                                         <div class="col-sm-4 col-md-3">
                                             <input class="form-control" id="inputedEpisodes" name="inputedEpisodes"
                                                    ng-pattern="/(^[0-9]{1,4}$)|(^[0-9]{1,3}[\-]{1}[0-9]{1,4}$)/"
-                                                   ng-model="vm.inputedEpisodes" ng-disabled="vm.inputedEpisodesOK" required>
+                                                   ng-model="vm.inputedEpisodes" required>
                                         </div>
                                         <div class="col-sm-4 col-md-3 margin-left-20">
-                                            <button type="submit" class="btn btn-success btn-width-80">{{'BTN_CONTINUE' | translate}}</button>
+                                            <button type="submit" class="btn btn-default btn-min-width-80">{{'BTN_CONTINUE' | translate}}</button>
                                         </div>
-                                        <div class="col-xs-12" ng-messages="vm.episodesForm.inputedEpisodes.$error" role="alert">
-                                            <p class="help-block error-text"
-                                               ng-message="required">{{'TMDB_FIELDS.EPISODES_INPUT_TIP' | translate}}</p>
-
-                                            <p class="help-block error-text" ng-message="pattern">{{'TMDB_FIELDS.EPISODES_INPUT_TIP' | translate}}</p>
+                                        <div class="col-xs-12" ng-class="{'text-danger': vm.episodesForm.inputedEpisodes.$error}" role="alert">
+                                            <p class="help-block">{{'TMDB_FIELDS.EPISODES_INPUT_TIP' | translate}}</p>
                                         </div>
-                                        <div class="col-xs-12" ng-hide="vm.inputedEpisodesError">
-                                            <p class="episodes_input_tip">{{ 'TMDB_FIELDS.EPISODES_INPUT_TIP' | translate}}</p>
-                                        </div>
+                                        <!--<div class="col-xs-12" ng-hide="vm.inputedEpisodesError">-->
+                                            <!--<p class="episodes_input_tip">{{ 'TMDB_FIELDS.EPISODES_INPUT_TIP' | translate}}</p>-->
+                                        <!--</div>-->
                                     </div>
                                 </dd>
                             </form>
                         </div>
                     </dl>
-                </div>
-            </div>
-        </div>
-
-        <div class="row margin-bottom-40" ng-show="vm.showResourceTitleInput">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <legend class="small-legend" translate="ENTER_RESOURCE_TITLE"></legend>
-                <div class="col-md-10 col-sm-10">
-                    <input type="text" class="form-control" ng-model="vm.customTorrent.title" placeholder="{{ 'RESOURCE_TITLE' | translate}}"
-                           maxlength="{{vm.inputLengthConfig.uploadTorrentTitleLength}}" autofocus>
-                </div>
-                <div class="col-md-10 col-sm-10 margin-top-10">
-                    <input type="text" class="form-control" ng-model="vm.customTorrent.subtitle" placeholder="{{ 'RESOURCE_SUB_TITLE' | translate}}"
-                           maxlength="{{vm.inputLengthConfig.uploadTorrentSubTitleLength}}">
                 </div>
             </div>
         </div>
@@ -873,7 +943,7 @@
             </div>
         </div>
         <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 text-center">
-            <button class="uploaded_popup_close btn btn-success btn-width-100">{{'BUTTON_UPLOADED_POPUP_CLOSE' | translate}}</button>
+            <button class="uploaded_popup_close btn btn-success btn-min-width-100">{{'BUTTON_UPLOADED_POPUP_CLOSE' | translate}}</button>
         </div>
     </div>
 </div>

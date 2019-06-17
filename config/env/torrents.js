@@ -47,6 +47,8 @@ module.exports = {
      * @supportMailAddress:             support group mail address
      * @mailTicketSupportService:       settings mailTicketSupportService status, true is enable, false is disable
      * @messageTicketSupportService:    settings messageTicketSupportService status, true is enable, false is disable
+     * @checkOpenedTicketsInterval:     set check opened tickets interval, default 2 minutes
+     * @checkOpenedTicketsInterval_str: string desc of @checkOpenedTicketsInterval
      *
      * NOTE:
      * =====
@@ -57,7 +59,9 @@ module.exports = {
       supportGroupNameDesc: 'SUPPORT_GROUP_NAME_DESC',
       supportMailAddress: 'support@mean.im',
       mailTicketSupportService: false,
-      messageTicketSupportService: true
+      messageTicketSupportService: true,
+      checkOpenedTicketsInterval: 60 * 1000 * 2,
+      checkOpenedTicketsInterval_str: '2m'
     },
 
     /**
@@ -163,8 +167,7 @@ module.exports = {
       debugAnnounceUser: {
         debugAll: false,
         ids: [
-          '59227f9095602327ea1d96ba',
-          '592280c464be9e281a1ec56e'
+          '59227f9095602327ea1d96ba'
         ]
       },
       debugClientSideUser: {
@@ -304,28 +307,76 @@ module.exports = {
       bodyBackgroundImage: 'https://image.tmdb.org/t/p/w1280/cnKAGbX1rDkAquF2V1wVkptHDJO.jpg',
       buttonList: [
         {
-          icon: 'fa-bars',
+          icon: 'fa fa-bars',
           state: 'forums.list',
           title: 'HOME.BUTTON_LIST.FUN_FORUM_TITLE',
           desc: 'HOME.BUTTON_LIST.FUN_FORUM_DESC'
         },
         {
-          icon: 'fa-vimeo',
+          icon: 'fab fa-vimeo-v',
           state: 'vip.list',
           title: 'HOME.BUTTON_LIST.FUN_VIP_TITLE',
           desc: 'HOME.BUTTON_LIST.FUN_VIP_DESC'
         },
         {
-          icon: 'fa-question-circle-o',
+          icon: 'fa fa-question-circle',
           state: 'about.manual.userRules',
           title: 'HOME.BUTTON_LIST.FUN_HELP_TITLE',
           desc: 'HOME.BUTTON_LIST.FUN_HELP_DESC'
         },
         {
-          icon: 'fa-headphones',
+          icon: 'fa fa-headphones',
           state: 'tickets.supports',
           title: 'HOME.BUTTON_LIST.FUN_SUPPORT_TITLE',
           desc: 'HOME.BUTTON_LIST.FUN_SUPPORT_DESC'
+        }
+      ]
+    },
+
+    /**
+     * @collections
+     *
+     * settings of movie collections
+     *
+     * @enable:               setting enable status of movie collections function
+     */
+    collections: {
+      enable: true
+    },
+
+    /**
+     * @medals
+     *
+     * settings of medals wall
+     *
+     * @showWorkerUsersListToAll:   setting normal user whether can list workers type medal owned users
+     * @type:                       medals type
+     *      @cats:                  medal cats, please add translate string MEDALS_CATS_@cats
+     *      @name:                  medal name
+     *      @prefix:                medal description translate string prefix, such as MEDALS_DESC_@prifix
+     *      @faClass:               medal logo background layer icon class with font-awesome
+     *      @iconClass:             medal logo top icon class with font-awesome
+     *
+     *      @hasHeader:             setting whether has a header string on medal, if true please add translate string MEDALS_HEADERSTRING_@prefix
+     *      @hasFooter:             setting whether has a footer string on medal, if true please add translate string MEDALS_FOOTERSTRING_@prefix
+     *      @passHelp:              setting for get this medal need who help
+     *      @score:                 setting for self help medal by scores number
+     *      @enable:                enable status
+     */
+    medals: {
+      showWorkerUsersListToAll: false,
+      type: [
+        {
+          cats: 'workers', name: 'root', prefix: 'ROOT', faClass: 'fa fa-shield', iconClass: 'far fa-user-secret',
+          hasHeader: false, hasFooter: true, passHelp: 'admin', enable: true
+        },
+        {
+          cats: 'commemorative', name: 'siteBegin', prefix: 'SITE_BEGIN', faClass: 'fa fa-badge',
+          hasHeader: true, hasFooter: true, passHelp: 'self', score: 1000, enable: true
+        },
+        {
+          cats: 'events', name: 'closeBeta', prefix: 'CLOSE_BETA', faClass: 'fa fa-hexagon',
+          hasHeader: true, hasFooter: true, passHelp: 'admin', enable: true
         }
       ]
     },
@@ -338,6 +389,7 @@ module.exports = {
      *
      * @openSignup:                   set whether open the signup, if true, the user can signup(register) by herself,
      *                                if you create a private web site, and only accept invite to join, please set it to false.
+     * @displayNameMaxLength:         settings max length of displayName
      * @emailAllowable:                allowable email address white list, only these address can be invited and sign up
      * @signUpActiveTokenExpires:     sign up account active expires time setting.
      * @signUpActiveTokenExpires_str: string desc of @signUpActiveTokenExpires
@@ -358,6 +410,7 @@ module.exports = {
      */
     sign: {
       openSignup: true,
+      displayNameMaxLength: 16,
       emailAllowable: ['gmail.com', 'qq.com'],
       signUpActiveTokenExpires: 60 * 60 * 1000 * 24,
       signUpActiveTokenExpires_str: '24h',
@@ -407,7 +460,8 @@ module.exports = {
      *                  if user received an invite mail, must signin(register) within the expiration time
      *                  if exceed the expiration time, the invite send qualifications will invalid and user also can not signin(register).
      * @expires_str:    string desc of @expires
-     * @banUserInviter: settings whether ban the user`s inviter when a user banned
+     * @banUserInviter:     settings whether ban the user`s inviter when a user banned
+     * @banUserInviterVip:  settings whether ban the user`s inviter if the inviter is a vip user
      *
      * @official:       settings of official invitations
      *    @presentDays: settings of present official available days list
@@ -418,8 +472,9 @@ module.exports = {
       expires: 60 * 60 * 1000 * 24,
       expires_str: '24h',
       banUserInviter: true,
+      banUserInviterVip: true,
       official: {
-        presentDays: [1, 10, 30, 90, 180]
+        presentDays: [1, 7, 30, 90, 180]
       }
     },
 
@@ -447,10 +502,6 @@ module.exports = {
      *
      * @levelStep:              value of each level step, default 500
      * @scoreLogDays:           setting of days to write score detail log to db, because the data is too more too big, do not to set a big value
-     * @transfer:               setting of transfer score to inviter per month
-     *        @enable:          setting whether to enable transfer
-     *        @deductFromUser:  setting whether deduct the score from user
-     *        @transRatio:      setting transfer ratio, the user`s score of this ratio will be subtract and add into the inviter`s account if the @deductFromUser is true
      * @action:                 score change action list
      *        @name:            action name
      *        @value:           action score value
@@ -460,17 +511,9 @@ module.exports = {
     score: {
       levelStep: 1000,
       scoreLogDays: 10,
-      transferToInviter: {
-        enable: true,
-        deductFromUser: false,
-        transRatio: 0.001
-      },
       action: {
         defaultAction: {name: 'defaultAction', content: 'DEFAULT_ACTION', value: 0, enable: true},
         adminModify: {name: 'adminModify', content: 'ADMIN_MODIFY', value: 0, enable: true},
-
-        transferScoreIntoInviterFrom: {name: 'transferScoreIntoInviterFrom', content: 'TRANSFER_SCORE_INTO_INVITER_FROM', value: 0, enable: true},
-        transferScoreIntoInviterTo: {name: 'transferScoreIntoInviterTo', content: 'TRANSFER_SCORE_INTO_INVITER_TO', value: 0, enable: true},
 
         uploadTorrent: {name: 'uploadTorrent', content: 'UPLOAD_TORRENT', value: 20, enable: true},
         uploadTorrentBeDeleted: {name: 'uploadTorrentBeDeleted', content: 'UPLOAD_TORRENT_BE_DELETED', value: -20, enable: true},
@@ -489,6 +532,7 @@ module.exports = {
 
         scoreExchangeInvitation: {name: 'scoreExchangeInvitation', content: 'SCORE_EXCHANGE_INVITATION', value: 0, enable: true}, //value used invite.scoreExchange
         scoreToRemoveWarning: {name: 'scoreToRemoveWarning', content: 'SCORETO_REMOVE_WARNING', value: 0, enable: true}, //value used hitAndRun.scoreToRemoveWarning
+        scoreToRequestMedal: {name: 'scoreToRequestMedal', content: 'SCORETO_REQUEST_MEDAL', value: 0, enable: true}, //value used hitAndRun.scoreToRemoveWarning
         activeIdleAccount: {name: 'activeIdleAccount', content: 'ACTIVE_IDLE_ACCOUNT', value: 0, enable: true}, //value used sign.idle.activeIdleAccountBasicScore
 
         dailyCheckIn: {
@@ -505,8 +549,8 @@ module.exports = {
           content: 'SEED_UP_DOWNLOAD',
           additionSize: 1024 * 1024 * 1024 * 10,  //10G
           additionSize_str: '10G',
-          perlSize: 1024 * 1024 * 1024,   //1G
-          perlSize_str: '1G',
+          perlSize: 1024 * 1024 * 1024 * 5,   //5G
+          perlSize_str: '5G',
 
           uploadValue: 1,
           uploadEnable: true,
@@ -523,7 +567,7 @@ module.exports = {
           content: 'SEED_TIMED',
           additionTime: 60 * 60 * 1000,
           additionTime_str: '1h',
-          timedValue: 0.5,
+          timedValue: 1,
           vipRatio: 1.5,
 
           enable: true
@@ -575,6 +619,17 @@ module.exports = {
       checkUnreadInterval_str: '2m',
       serverMessageExpires: 60 * 60 * 1000 * 24 * 10,
       serverMessageExpires_str: '10d'
+    },
+
+    /**
+     * @favorites
+     *
+     * settings of my favorites
+     *
+     * @name:                         favorites name string of $translate
+     */
+    favorites: {
+      name: 'FAVORITES.FAVORITES_NAME'
     },
 
     /**
@@ -704,12 +759,16 @@ module.exports = {
         adminUpdateUserUploaded: {name: 'adminUpdateUserUploaded', enable: true},
         adminUpdateUserDownloaded: {name: 'adminUpdateUserDownloaded', enable: true},
         adminUpdateUserVIPData: {name: 'adminUpdateUserVIPData', enable: true},
+        adminBanUserInviter: {name: 'adminBanUserInviter', enable: true},
         adminPresentUserInvitations: {name: 'adminPresentUserInvitations', enable: true},
         adminRemoveUserHnrWarning: {name: 'adminRemoveUserHnrWarning', enable: true},
         adminCreateUserMakerGroup: {name: 'adminCreateUserMakerGroup', enable: true},
+        adminAddUserMedal: {name: 'adminAddUserMedal', enable: true},
+        adminRemoveUserMedal: {name: 'adminRemoveUserMedal', enable: true},
 
         adminUserDelete: {name: 'adminUserDelete', enable: true},
         adminUserEdit: {name: 'adminUserEdit', enable: true},
+        adminMakerEdit: {name: 'adminMakerEdit', enable: true},
         adminBanAllExaminationUnfinishedUsers: {name: 'adminBanAllExaminationUnfinishedUsers', enable: true},
 
         userPasswordReset: {name: 'userPasswordReset', enable: true},
@@ -759,7 +818,10 @@ module.exports = {
         adminUpdateUserVIPData: {name: 'adminUpdateUserVIPData', content: 'ADMIN_UPDATE_USER_VIP_DATA', enable: true},
         adminPresentUserInvitations: {name: 'adminPresentUserInvitations', content: 'ADMIN_PRESENT_USER_INVITATIONS', enable: true},
         adminRemoveUserHnrWarning: {name: 'adminRemoveUserHnrWarning', content: 'ADMIN_REMOVE_USER_HNR_WARNING', enable: true},
-        adminCreateUserMakerGroup: {name: 'adminCreateUserMakerGroup', content: 'ADMIN_CREATE_USER_MAKER_GROUP', enable: true}
+        adminCreateUserMakerGroup: {name: 'adminCreateUserMakerGroup', content: 'ADMIN_CREATE_USER_MAKER_GROUP', enable: true},
+        adminAddUserMedal: {name: 'adminAddUserMedal', content: 'ADMIN_ADD_USER_MEDAL', enable: true},
+        adminRemoveUserMedal: {name: 'adminRemoveUserMedal', content: 'ADMIN_REMOVE_USER_MEDAL', enable: true},
+        adminBanUserInviter: {name: 'adminBanUserInviter', content: 'ADMIN_BAN_USER_INVITER', enable: true}
       }
     },
 
@@ -877,7 +939,7 @@ module.exports = {
           value: 'sports',
           title: 'MENU_TORRENTS_SUB.SPORTS',
           role: 'user',
-          faIcon: 'fa-futbol-o',
+          faIcon: 'fa-futbol',
           faClass: 'text-mt',
           divider: false,
           position: 5,
@@ -895,7 +957,7 @@ module.exports = {
           value: 'variety',
           title: 'MENU_TORRENTS_SUB.VARIETY',
           role: 'user',
-          faIcon: 'fa-video-camera',
+          faIcon: 'fa-camera',
           faClass: 'text-mt',
           divider: false,
           position: 6,
@@ -913,7 +975,7 @@ module.exports = {
           value: 'picture',
           title: 'MENU_TORRENTS_SUB.PICTURE',
           role: 'user',
-          faIcon: 'fa-photo',
+          faIcon: 'fa-images',
           faClass: 'text-mt',
           divider: false,
           position: 7,
@@ -949,7 +1011,7 @@ module.exports = {
           value: 'software',
           title: 'MENU_TORRENTS_SUB.SOFTWARE',
           role: 'user',
-          faIcon: 'fa-hdd-o',
+          faIcon: 'fa-hdd',
           faClass: 'text-mt',
           divider: false,
           position: 9,
@@ -1024,11 +1086,12 @@ module.exports = {
      * the torrent status settings
      * NOTE: don`t change these value if you can not understand it
      *
-     * @name:   do not change it
-     * @value:  value of status
-     *
-     *        @name:  name of status level, used by $translate at TORRENT_RECOMMEND_LEVEL_ITEM, will show translate result in torrent admin list
-     *        @value: value of status level, will write this value into mongodb and query(search) torrents by this value
+     * @name:                         do not change it
+     * @value:                        value of status
+     *        @name:                  name of status level, used by $translate at TORRENT_RECOMMEND_LEVEL_ITEM, will show translate result in torrent admin list
+     *        @value:                 value of status level, will write this value into mongodb and query(search) torrents by this value
+     * @checkNewTorrentsInterval:     set check new torrents interval, default 2 minutes
+     * @checkNewTorrentsInterval_str: string desc of @checkNewTorrentsInterval
      */
     torrentStatus: {
       name: 'STATUS',
@@ -1036,7 +1099,9 @@ module.exports = {
         {name: 'NEW', value: 'new'},
         {name: 'REVIEWED', value: 'reviewed'},
         {name: 'DELETED', value: 'deleted'}
-      ]
+      ],
+      checkNewTorrentsInterval: 60 * 1000 * 2,
+      checkNewTorrentsInterval_str: '2m'
     },
 
     /**
@@ -1244,19 +1309,19 @@ module.exports = {
      *
      * examination system settings
      *
-     * @incrementData:      examination requirements data settings
-     *      @upload:        increment uploaded data size
-     *      @upload_str:    string desc of @upload
-     *      @download:      increment downloaded data size
-     *      @download_str:  string desc of @download
-     *      @score:         increment score number
-     * @timeSet:            examination time settings
-     *      @startAt:       examination start time
-     *      @endAt:         examination end time
-     *      @noticeMsg:     notice translate string show at top of home
-     *      @noticeShowAt:  notice begin time to show
-     *      @timeFormats:   time string format
-     * @detailUrl:          detail info of examination, maybe a forum link url
+     * @incrementData:                examination requirements data settings
+     *      @upload:                  increment uploaded data size
+     *      @upload_str:              string desc of @upload
+     *      @download:                increment downloaded data size
+     *      @download_str:            string desc of @download
+     *      @score:                   increment score number
+     * @timeSet:                      examination time settings
+     *      @startAt:                 examination start time
+     *      @endAt:                   examination end time
+     *      @noticeMsg:               notice translate string show at top of home
+     *      @noticeShowAt:            notice begin time to show
+     *      @timeFormats:             time string format
+     * @detailUrl:                    detail info of examination, maybe a forum link url
      * ------------------------------------------------------------------------------
      *  !IMPORTANT NOTE:
      *  IF YOU START A NEW EXAMINATION, PLEASE SETTING THESE CONFIGURE ITEMS,
@@ -1414,34 +1479,38 @@ module.exports = {
      * items number in per list page settings
      * NOTE: you can change these value at anytime if you understand it
      *
-     * @topicsPerPage:            forum topic list page settings
-     * @repliesPerPage:           forum topic replies list page settings
-     * @topicsSearchPerPage:      forum topic search list page settings
-     * @torrentsPerPage:          torrents list page settings
-     * @torrentsCommentsPerPage:  torrent comments list settings
-     * @makeGroupTorrentsPerPage: torrent of make group list page settings
-     * @albumTorrentsPerPage:     torrent of album list page settings
-     * @tracesPerPage:            system traces log list page settings
-     * @adminUserListPerPage:     admin manage users list page settings
-     * @collectionsListPerPage:   movie collections list page settings
-     * @backupFilesListPerPage:   system backup files list page settings
-     * @torrentPeersListPerPage:  torrent detail seeder & leecher users list page settings
+     * @topicsPerPage:                    forum topic list page settings
+     * @repliesPerPage:                   forum topic replies list page settings
+     *
+     * @topicsSearchPerPage:              forum topic search list page settings
+     * @torrentsPerPage:                  torrents list page settings
+     * @torrentsCommentsPerPage:          torrent comments list settings
+     * @torrentsFavoritesPerPage:         torrent of favorites list page settings
+     * @makeGroupTorrentsPerPage:         torrent of make group list page settings
+     * @albumTorrentsPerPage:             torrent of album list page settings
+     *
+     * @tracesPerPage:                    system traces log list page settings
+     * @adminUserListPerPage:             admin manage users list page settings
+     * @collectionsListPerPage:           movie collections list page settings
+     * @backupFilesListPerPage:           system backup files list page settings
+     * @torrentPeersListPerPage:          torrent detail seeder & leecher users list page settings
      * @officialInvitationsListPerPage:   official invitations list page settings
      * @userInvitationsListPerPage:       users invitations list page settings
      * @userDataLogsListPerPage:          users data history logs list page settings
+     * @medalUsersListPerPage:            medal owned users list page settings
      *
-     * @uploaderUserListPerPage:  admin management uploader access list page settings
-     * @messageBoxListPerPage:    message box list page settings
-     * @followListPerPage:        users follow list page settings
+     * @uploaderUserListPerPage:          admin management uploader access list page settings
+     * @messageBoxListPerPage:            message box list page settings
+     * @followListPerPage:                users follow list page settings
      *
-     * @requestListPerPage:       request list page settings
-     * @requestCommentsPerPage:   request comments list settings
+     * @requestListPerPage:               request list page settings
+     * @requestCommentsPerPage:           request comments list settings
      *
      * @homeOrderTorrentListPerType:    every type of torrent showed in home settings
      * @homeNewestTorrentListPerType:   every type of torrent of newest showed in home settings
-     * @homeHelpListLimit:        help items number of home settings
-     * @homeNoticeListLimit:      notice items number of home settings
-     * @homeNewTopicListLimit:    new topic items number of home settings
+     * @homeHelpListLimit:              help items number of home settings
+     * @homeNoticeListLimit:            notice items number of home settings
+     * @homeNewTopicListLimit:          new topic items number of home settings
      * @homeNewestTorrentsListLimit:    newest torrents items number of home settings
      *
      * @examinationUserListPerPage:     users item number of examination result page
@@ -1453,11 +1522,14 @@ module.exports = {
     itemsPerPage: {
       topicsPerPage: 25,
       repliesPerPage: 20,
+
       topicsSearchPerPage: 20,
       torrentsPerPage: 20,
       torrentsCommentsPerPage: 20,
+      torrentsFavoritesPerPage: 20,
       makeGroupTorrentsPerPage: 20,
       albumTorrentsPerPage: 20,
+
       tracesPerPage: 30,
       adminUserListPerPage: 20,
       collectionsListPerPage: 9,
@@ -1466,6 +1538,7 @@ module.exports = {
       officialInvitationsListPerPage: 20,
       userInvitationsListPerPage: 10,
       userDataLogsListPerPage: 20,
+      medalUsersListPerPage: 60,
 
       uploaderUserListPerPage: 20,
       messageBoxListPerPage: 10,

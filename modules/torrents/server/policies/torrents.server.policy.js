@@ -29,6 +29,7 @@ exports.invokeRolesPolicies = function () {
           {resources: '/api/torrents', permissions: '*'},
           {resources: '/api/rss/:passkey', permissions: '*'},
           {resources: '/api/torrents/homeList', permissions: '*'},
+          {resources: '/api/torrents/countNewTorrents', permissions: '*'},
           {resources: '/api/torrents/:torrentId', permissions: '*'},
           {resources: '/api/torrents/:torrentId/thumbsUp', permissions: '*'},
           {resources: '/api/torrents/:torrentId/rating', permissions: '*'},
@@ -73,6 +74,7 @@ exports.invokeRolesPolicies = function () {
           {resources: '/api/torrents', permissions: ['get', 'post']},
           {resources: '/api/rss/:passkey', permissions: ['get']},
           {resources: '/api/torrents/homeList', permissions: ['get']},
+          {resources: '/api/torrents/countNewTorrents', permissions: ['get']},
           {resources: '/api/torrents/:torrentId', permissions: ['get', 'put']},
           {resources: '/api/torrents/:torrentId/thumbsUp', permissions: ['put']},
           {resources: '/api/torrents/:torrentId/rating', permissions: ['put']},
@@ -104,6 +106,7 @@ exports.invokeRolesPolicies = function () {
           {resources: '/api/torrents', permissions: ['get']},
           {resources: '/api/rss/:passkey', permissions: ['get']},
           {resources: '/api/torrents/homeList', permissions: ['get']},
+          {resources: '/api/torrents/countNewTorrents', permissions: ['get']},
           {resources: '/api/torrents/:torrentId', permissions: ['get']},
           {resources: '/api/torrents/:torrentId/seederUsers', permissions: ['get']},
           {resources: '/api/torrents/:torrentId/leecherUsers', permissions: ['get']},
@@ -120,6 +123,10 @@ exports.invokeRolesPolicies = function () {
  */
 exports.isAllowed = function (req, res, next) {
   var roles = (req.user) ? req.user.roles : ['guest'];
+
+  if (req.torrent && req.user && req.torrent.user && req.torrent.user.id === req.user.id) {
+    return next();
+  }
 
   // Check for user roles
   acl.areAnyRolesAllowed(roles, req.route.path, req.method.toLowerCase(), function (err, isAllowed) {

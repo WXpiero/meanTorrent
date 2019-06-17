@@ -10,10 +10,10 @@
                      alt="{{vm.TGI.getTorrentTitle(item)}}">
 
                 <div class="layer-download" ng-class="{'music': item.torrent_type=='music'}">
-                    <i class="fa fa-arrow-circle-o-down fa-3x" aria-hidden="true"
+                    <i class="far fa-arrow-alt-circle-down fa-3x" aria-hidden="true"
                        title="{{ 'TITLE_ALT.DOWNLOAD_TORRENT' | translate}}"
                        ng-click="vm.DLS.downloadTorrent(item._id); $event.stopPropagation();"
-                       ng-class="{'fa-arrow-circle-down': vm.hover}"
+                       ng-class="{'fa': vm.hover}"
                        ng-mouseover="vm.hover = true;" ng-mouseleave="vm.hover = false;"></i>
                 </div>
             </div>
@@ -92,6 +92,12 @@
 
                     <span torrent-file-link-label="item" torrent-user="vm.user" info-class="label label-torrent-link"></span>
 
+                    <span torrent-to-favorite-label="item" torrent-user="vm.user" ng-click="vm.addTorrentToFavorite(item); $event.stopPropagation();"
+                          info-class="label label-torrent-link" ng-if="!vm.state.current.name.startsWith('favorites') && !parent.inMyFavorites(item)"></span>
+
+                    <span torrent-remove-from-favorite-label="item" torrent-user="vm.user" ng-click="vm.removeTorrentFromFavorite(item); $event.stopPropagation();"
+                          info-class="label label-torrent-link" ng-if="vm.state.current.name.startsWith('favorites')"></span>
+
                     <span class="label upload-by" ng-if="vm.showByLabel()">by:
                         <span ng-show="item.user.displayName">
                             <span user-info="item.user" info-name></span> <span maker-info="item.maker"></span>
@@ -127,8 +133,8 @@
     </td>
     <td class="col-md-1 td-v-middle text-center" ng-class="vm.state.current.name.startsWith('admin.torrents') ? 'td-admin-cmd' : 'td-uploader'">
         <div ng-if="vm.showByUser()">
-            <span ng-if="!item.isAnonymous" user-info="item.user" info-name></span>
-            <span ng-if="item.isAnonymous">{{ 'ANONYMOUS' | translate }}</span>
+            <span ng-if="!item.isAnonymous || vm.user.isOper" user-info="item.user" info-name></span>
+            <span ng-if="item.isAnonymous && !vm.user.isOper">{{ 'ANONYMOUS' | translate }}</span>
 
             <div maker-info="item.maker"></div>
             <!--<span vip-flag="item.user"></span>-->

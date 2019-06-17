@@ -24,6 +24,7 @@
           element.css('bottom', '20px');
           element.css('width', '36px');
           element.css('height', '36px');
+          element.css('z-index', 1);
           element.css('border-radius', '50%');
           element.css('backgroundColor', 'rgba(255, 255, 255, 0.8)');
 
@@ -54,18 +55,19 @@
 
           iEle.css('position', 'relative');
           iEle.css('top', '-3px');
+          iEle.css('right', '2.5px');
 
-          iEle.addClass('fa');
-          iEle.addClass('fa-arrow-circle-o-up');
+          iEle.addClass('far');
+          iEle.addClass('fa-arrow-alt-circle-up');
           iEle.addClass('fa-3x');
           iEle.addClass('text-primary');
 
           iEle.bind('mouseover', function (e) {
-            iEle.addClass('fa-arrow-circle-up');
+            iEle.removeClass('far').addClass('fa');
             //iEle.addClass('text-primary');
           });
           iEle.bind('mouseleave', function (e) {
-            iEle.removeClass('fa-arrow-circle-up');
+            iEle.removeClass('fa').addClass('far');
             //iEle.removeClass('text-primary');
           });
 
@@ -76,7 +78,7 @@
           wave.css('width', '100%');
           wave.css('height', '100%');
           wave.css('border-radius', '50%');
-          wave.css('z-index', '-1');
+          wave.css('z-index', '1');
           wave.css('pointer-events', 'none');
           wave.css('backgroundColor', 'transparent');
           wave.css('border', 'solid 5px #888');

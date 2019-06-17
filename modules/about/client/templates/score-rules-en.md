@@ -21,9 +21,9 @@
   Vip user extra adition: ratio of %(scoreConfig.action.seedUpDownload.vipRatio).2f
 
   Examples: 
-    for 40G torrent, the size addition ratio is 2, announce uploaded 10G and downloaded 15G,
-    none vip user get uploaded scores: 2 * 1 * 10 = 20, downloaded scores: 2 * 0.5 * 15 = 15. 
-    vip user get uploaded scores: 20 * 1.5 = 30, downloaded scores: 15 * 1.5 = 22.5.
+    for 40G torrent, the size addition ratio is 2, announce uploaded 20G and downloaded 10G,
+    none vip user get uploaded scores: 2 * 1 * 4 = 8, downloaded scores: 2 * 0.5 * 2 = 2. 
+    vip user get uploaded scores: 8 * 1.5 = 12, downloaded scores: 2 * 1.5 = 3.
 ```
 * Seed uploaders calculate the upload scores of `* %(scoreConfig.action.seedUpDownload.uploaderRatio).2f`.
 * In the seeding state, the seeding scores will be get from the seeding time. For every seed, `%(scoreConfig.action.seedTimed.timedValue).2f` scores per `%(scoreConfig.action.seedTimed.additionTime_str)s`, vip user extra addition ratio is `%(scoreConfig.action.seedTimed.vipRatio).2f`.
@@ -44,10 +44,6 @@
   
   The basic ratio is %(scoreConfig.action.seedSeederAndLife.lifeBasicRatio).2f, increase %(scoreConfig.action.seedSeederAndLife.lifeCoefficientOfDay).3f every day.
   For 10 days life ratio is 1.01, [100 days is 1.1], [200 days is 1.2] etc, the max ratio is %(scoreConfig.action.seedSeederAndLife.lifeMaxRatio).2f.
-```
-* At the end of each month, the system will award scores to users who have successfully sent invitations. the score number limit is the percentage `%(scoreConfig.transferToInviter.transRatio)f` of the monthly got of the invited users, the current award function enable status is：
-```javascript
-scoreConfig.transferToInviter.enable = %(scoreConfig.transferToInviter.enable)s
 ```
 
 &emsp;

@@ -3,7 +3,7 @@
         <div class="container">
             <div class="alert alert-success" role="alert" style="padding: 20px 50px;">
                 <span ng-bind-html="vm.getSaleNoticeMessage();"></span>
-                <i class="fa fa-close" aria-hidden="true" ng-click="vm.onCloseNoticeClicked('sales_notice');">
+                <i class="fa fa-times" aria-hidden="true" ng-click="vm.onCloseNoticeClicked('sales_notice');">
                 </i>
             </div>
         </div>
@@ -14,7 +14,7 @@
         <div class="container">
             <div class="alert alert-danger" role="alert" style="padding: 20px 50px;">
                 <span ng-bind-html="vm.getExaminationNoticeMessage();"></span>
-                <i class="fa fa-close" aria-hidden="true" ng-click="vm.onCloseNoticeClicked('examination_notice');">
+                <i class="fa fa-times" aria-hidden="true" ng-click="vm.onCloseNoticeClicked('examination_notice');">
                 </i>
             </div>
         </div>
@@ -29,7 +29,7 @@
             <div class="alert" role="alert" ng-class="vm.user.examinationData.isFinished ? 'alert-success' : 'alert-danger'"
                  style="padding: 20px 50px;">
                 <span ng-bind-html="vm.getExaminationStatusMessage();"></span>
-                <i class="fa fa-close" aria-hidden="true" ng-click="vm.onCloseNoticeClicked('examination_status');">
+                <i class="fa fa-times" aria-hidden="true" ng-click="vm.onCloseNoticeClicked('examination_status');">
                 </i>
             </div>
         </div>
@@ -61,7 +61,7 @@
                                                ng-keydown="vm.onSearchKeyDown($event);"
                                                aria-label="search" placeholder="Search">
 
-                                        <button class="btn btn-width-100 btn-search" id="search-button" aria-label="Search"
+                                        <button class="btn btn-min-width-100 btn-search" id="search-button" aria-label="Search"
                                                 mouse-enter-toggle-class="btn-success" base-class="btn-default"
                                                 ng-click="vm.doGlobalSearch()">
                                             {{'BTN_GLOBAL_SEARCH' | translate}}
@@ -252,7 +252,7 @@
                             <div class="vip-more margin-bottom-10">
                                 <a ui-sref="vip.rules">{{'HOME.MORE_VIP_RULES_AND_RIGHT' | translate}}</a>
                             </div>
-                            <a ui-sref="vip.donate" class="btn btn-width-150 btn-mt-success-light margin-bottom-20"
+                            <a ui-sref="vip.donate" class="btn btn-min-width-150 btn-mt-success-light margin-bottom-20"
                                mt-scale-by-mouse="{scale: 1.2, duration: '.5s'}">
                                 {{'HOME.BTN_JOIN_VIP' | translate}}
                             </a>
@@ -270,7 +270,7 @@
                             <div class="col-xs-6 col-sm-3 text-center fun-item" ng-repeat="fun in vm.homeConfig.buttonList">
                                 <span class="fa-stack" ui-sref="{{fun.state}}">
                                     <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa {{fun.icon}} fa-stack-1x fun-icon"></i>
+                                    <i class="{{fun.icon}} fa-stack-1x fun-icon"></i>
                                 </span>
                                 <h4 class="fun-title" translate="{{fun.title}}"></h4>
                                 <span class="fun-desc" translate="{{fun.desc}}"></span>

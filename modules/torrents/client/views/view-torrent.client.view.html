@@ -21,7 +21,7 @@
                                  ng-if="vm.torrentLocalInfo.torrent_type!='movie' && vm.torrentLocalInfo.torrent_type!='tvserial'">
                                 <span uib-rating ng-model="vm.rating_vote" max="10"
                                       state-on="'fa fa-star'"
-                                      state-off="'fa fa-star-o'"
+                                      state-off="'far fa-star'"
                                       titles="['1','2','3','4','5','6','7','8','9','10']"
                                       enable-reset="false"
                                       ng-click="vm.ratingTorrent(vm.torrentLocalInfo);"
@@ -35,19 +35,27 @@
                         </div>
                         <div class="col-md-9 torrent-detail">
                             <dl class="dl-horizontal">
-                                <div ng-if="vm.TGI.getTorrentTitle(vm.torrentLocalInfo)">
-                                    <dt class="h-line">{{ 'TMDB_FIELDS.TITLE' | translate}}：</dt>
-                                    <dd class="h-line">{{vm.TGI.getTorrentTitle(vm.torrentLocalInfo)}}</dd>
+                                <div ng-if="vm.torrentLocalInfo.torrent_type=='movie' || vm.torrentLocalInfo.torrent_type=='tvserial'">
+                                    <div ng-if="vm.TGI.getTorrentTitle(vm.torrentLocalInfo)">
+                                        <dt class="h-line">{{ 'TMDB_FIELDS.TITLE' | translate}}：</dt>
+                                        <dd class="h-line">{{vm.TGI.getTorrentTitle(vm.torrentLocalInfo)}}</dd>
+                                    </div>
+
+                                    <div ng-if="vm.TGI.getTorrentOriginalTitle(vm.torrentLocalInfo)">
+                                        <dt class="h-line">{{ 'TMDB_FIELDS.ORIGINAL_TITLE' | translate}}：</dt>
+                                        <dd class="h-line">{{vm.TGI.getTorrentOriginalTitle(vm.torrentLocalInfo)}}</dd>
+                                    </div>
                                 </div>
 
-                                <div ng-if="vm.TGI.getTorrentOriginalTitle(vm.torrentLocalInfo)">
-                                    <dt class="h-line">{{ 'TMDB_FIELDS.ORIGINAL_TITLE' | translate}}：</dt>
-                                    <dd class="h-line">{{vm.TGI.getTorrentOriginalTitle(vm.torrentLocalInfo)}}</dd>
-                                </div>
-
-                                <div ng-if="vm.torrentLocalInfo.resource_detail_info.subtitle">
-                                    <dt class="h-line">{{ 'TMDB_FIELDS.SUB_TITLE' | translate}}：</dt>
-                                    <dd class="h-line">{{vm.torrentLocalInfo.resource_detail_info.subtitle}}</dd>
+                                <div ng-if="vm.torrentLocalInfo.torrent_type!='movie' && vm.torrentLocalInfo.torrent_type!='tvserial'">
+                                    <div ng-if="vm.torrentLocalInfo.resource_detail_info.custom_title">
+                                        <dt class="h-line">{{ 'TMDB_FIELDS.TITLE' | translate}}：</dt>
+                                        <dd class="h-line">{{vm.torrentLocalInfo.resource_detail_info.custom_title}}</dd>
+                                    </div>
+                                    <div ng-if="vm.torrentLocalInfo.resource_detail_info.custom_subtitle">
+                                        <dt class="h-line">{{ 'TMDB_FIELDS.SUB_TITLE' | translate}}：</dt>
+                                        <dd class="h-line">{{vm.torrentLocalInfo.resource_detail_info.custom_subtitle}}</dd>
+                                    </div>
                                 </div>
 
                                 <div ng-if="vm.torrentLocalInfo.resource_detail_info.artist">
@@ -242,7 +250,7 @@
                                             ng-click="vm.beginSaveScreenshots()">
                                         {{'SAVE_THIS_SCREENSHOTS' | translate}}
                                     </button>
-                                    <button class="btn btn-xs btn-mt-o margin-top-15 btn-width-80" mouse-enter-toggle-class="btn-mt-o-success"
+                                    <button class="btn btn-xs btn-mt-o margin-top-15 btn-min-width-80" mouse-enter-toggle-class="btn-mt-o-success"
                                             base-class="btn-mt-o-primary"
                                             ng-if="vm.isEditScreenshots && (vm.isOwner(vm.torrentLocalInfo) || vm.user.isOper)"
                                             ng-click="vm.CancelScreenshots()">
@@ -438,26 +446,26 @@
         <div class="img_view">
             <div class="img_item center-block">
                 <img class="img-thumbnail img-responsive" src="" on-image-load="vm.onTmdbImageLoad()">
-                <i class="fa fa-2x fa-times-circle-o popup_img_preview_close" mt-scale-by-mouse="{scale: 1.5, duration: '.5s'}"
+                <i class="fa fa-2x fa-times-circle popup_img_preview_close" mt-scale-by-mouse="{scale: 1.5, duration: '.5s'}"
                    aria-hidden="true"></i>
             </div>
             <div class="mask-background"></div>
             <div class="tmdb-image-loading">
-                <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
+                <i class="fa fa-circle-notch fa-spin fa-3x fa-fw"></i>
                 <h4 class="loading">{{'TMDB_FIELDS.IMAGE_LOADING' | translate}}</h4>
             </div>
         </div>
         <div class="img_nav text-center">
             <span class="img_page_info"></span>
-            <button class="btn btn-bold btn-width-120 btn-mt-o popup_img_preview_close" mouse-enter-toggle-class="btn-mt-o-light"
+            <button class="btn btn-bold btn-min-width-120 btn-mt-o popup_img_preview_close" mouse-enter-toggle-class="btn-mt-o-light"
                     base-class="btn-mt-o-success">
                 {{'BUTTON_MESSAGE_CLOSE' | translate}}
             </button>
-            <button class="btn btn-bold btn-width-120 btn-mt-o" mouse-enter-toggle-class="btn-mt-o-light" base-class="btn-mt-o-primary"
+            <button class="btn btn-bold btn-min-width-120 btn-mt-o" mouse-enter-toggle-class="btn-mt-o-light" base-class="btn-mt-o-primary"
                     ng-click="vm.previousImage()">
                 {{'PAGE_TEXT_PREVIOUS' | translate}}
             </button>
-            <button class="btn btn-bold btn-width-120 btn-mt-o" mouse-enter-toggle-class="btn-mt-o-light" base-class="btn-mt-o-primary"
+            <button class="btn btn-bold btn-min-width-120 btn-mt-o" mouse-enter-toggle-class="btn-mt-o-light" base-class="btn-mt-o-primary"
                     ng-click="vm.nextImage()">
                 {{'PAGE_TEXT_NEXT' | translate}}
             </button>
@@ -471,7 +479,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-12 col-md-10 col-md-offset-1">
-                    <div class="page-header"><h3>{{ 'ATTRIBUTE_TAGS' | translate}}</h3></div>
+                    <div class="page-header"><h4>{{ 'ATTRIBUTE_TAGS' | translate}}</h4></div>
                     <dl class="dl-horizontal">
                         <div ng-repeat="item in vm.resourcesTags.radio | filter:vm.torrentLocalInfo.torrent_type">
                             <dt class="h-line">{{ 'RESOURCESTAGS.'+item.name+'.SELF' | translate}}:</dt>
@@ -507,10 +515,10 @@
                         <div style="margin-top: 20px;">
                             <dt class="h-line"></dt>
                             <dd class="h-line">
-                                <button class="btn btn-success btn-width-100" ng-click="vm.setTorrentTags();">
+                                <button class="btn btn-success btn-min-width-100" ng-click="vm.setTorrentTags();">
                                     {{ 'BUTTON_SAVE' | translate }}
                                 </button>
-                                <button class="btn btn-default btn-width-100" ng-click="vm.hideTagsPopup();">
+                                <button class="btn btn-default btn-min-width-100" ng-click="vm.hideTagsPopup();">
                                     {{ 'BUTTON_CANCEL' | translate }}
                                 </button>
                             </dd>
@@ -563,11 +571,11 @@
         </div>
 
         <div class="bottom-control">
-            <button class="btn btn-success btn-width-100"
+            <button class="btn btn-success btn-min-width-100"
                     ng-disabled="!vm.collection.name || !vm.collection.overview"
                     ng-click="vm.saveCollection();">{{ 'BUTTON_SAVE' | translate }}
             </button>
-            <button class="btn btn-default btn-width-100" ng-click="vm.hideCollectionPopup();">{{ 'BUTTON_CANCEL' | translate }}</button>
+            <button class="btn btn-default btn-min-width-100" ng-click="vm.hideCollectionPopup();">{{ 'BUTTON_CANCEL' | translate }}</button>
         </div>
     </div>
 
@@ -607,11 +615,11 @@
         </div>
 
         <div class="bottom-control">
-            <button class="btn btn-success btn-width-100"
+            <button class="btn btn-success btn-min-width-100"
                     ng-disabled="!vm.collectionTorrent.cid"
                     ng-click="vm.saveInsertCollection();">{{ 'BUTTON_SAVE' | translate }}
             </button>
-            <button class="btn btn-default btn-width-100" ng-click="vm.hideCollectionInsertPopup();">{{ 'BUTTON_CANCEL' | translate }}</button>
+            <button class="btn btn-default btn-min-width-100" ng-click="vm.hideCollectionInsertPopup();">{{ 'BUTTON_CANCEL' | translate }}</button>
         </div>
     </div>
 
@@ -649,11 +657,11 @@
         </div>
 
         <div class="bottom-control">
-            <button class="btn btn-success btn-width-100"
+            <button class="btn btn-success btn-min-width-100"
                     ng-disabled="!vm.album.name || !vm.album.overview"
                     ng-click="vm.saveAlbum();">{{ 'BUTTON_SAVE' | translate }}
             </button>
-            <button class="btn btn-default btn-width-100" ng-click="vm.hideAlbumPopup();">{{ 'BUTTON_CANCEL' | translate }}</button>
+            <button class="btn btn-default btn-min-width-100" ng-click="vm.hideAlbumPopup();">{{ 'BUTTON_CANCEL' | translate }}</button>
         </div>
     </div>
 
@@ -698,11 +706,11 @@
         </div>
 
         <div class="bottom-control">
-            <button class="btn btn-success btn-width-100"
+            <button class="btn btn-success btn-min-width-100"
                     ng-disabled="!vm.albumTorrent.aid"
                     ng-click="vm.saveInsertAlbum();">{{ 'BUTTON_SAVE' | translate }}
             </button>
-            <button class="btn btn-default btn-width-100" ng-click="vm.hideAlbumInsertPopup();">{{ 'BUTTON_CANCEL' | translate }}</button>
+            <button class="btn btn-default btn-min-width-100" ng-click="vm.hideAlbumInsertPopup();">{{ 'BUTTON_CANCEL' | translate }}</button>
         </div>
     </div>
 
@@ -732,10 +740,34 @@
                           callback="onTorrentSubTitleEdited"></span>
                 </dd>
 
+                <div ng-if="vm.torrentCollectionsInfo.length>0">
+                    <dt class="h-line">{{ 'JOINED_COLLECTIONS' | translate}}：</dt>
+                    <dd class="h-line">
+                        <ul class="list-unstyled joined-coll-list">
+                            <li ng-repeat="coll in vm.torrentCollectionsInfo">
+                                <i class="fa fa-sitemap text-mt" aria-hidden="true"></i>
+                                <a ui-sref="collections.view({collectionId: m._id})">{{coll.name}} ({{coll.torrents.length}})</a>
+                            </li>
+                        </ul>
+                    </dd>
+                </div>
+
+                <div ng-if="vm.torrentAlbumsInfo.length>0">
+                    <dt class="h-line">{{ 'JOINED_ALBUMS' | translate}}：</dt>
+                    <dd class="h-line">
+                        <ul class="list-unstyled joined-album-list">
+                            <li ng-repeat="ab in vm.torrentAlbumsInfo">
+                                <i class="fab fa-readme text-mt" aria-hidden="true"></i>
+                                <a ui-sref="albums.view({albumId: ab._id})">{{ab.name}} ({{ab.torrents.length}})</a>
+                            </li>
+                        </ul>
+                    </dd>
+                </div>
+
                 <dt class="h-line">{{ 'TABLE_FIELDS.PUBLISHER' | translate}}：</dt>
                 <dd class="h-line">
-                    <span ng-if="!vm.torrentLocalInfo.isAnonymous" user-info="vm.torrentLocalInfo.user" info-name></span>
-                    <span ng-if="vm.torrentLocalInfo.isAnonymous">{{ 'ANONYMOUS' | translate }}</span>
+                    <span ng-if="!vm.torrentLocalInfo.isAnonymous || vm.user.isOper" user-info="vm.torrentLocalInfo.user" info-name></span>
+                    <span ng-if="vm.torrentLocalInfo.isAnonymous && !vm.user.isOper">{{ 'ANONYMOUS' | translate }}</span>
                     <span maker-info="vm.torrentLocalInfo.maker"></span>
                     <!--<span message-to="vm.torrentLocalInfo.user" to-class="message-to-icon"></span>-->
                     <span>&nbsp;{{'MESSAGES_FIELD.INFO_SEND_AT' | translate}}: {{vm.torrentLocalInfo.createdat | date: 'yyyy-MM-dd HH:mm:ss'}}</span>
@@ -799,6 +831,14 @@
                             <span class="label label-tag" ng-if="vm.RTS.tagInList(t);">
                                 {{ 'RESOURCESTAGS.' + vm.RTS.getTagTitle(t) + '.' + t.toUpperCase() | translate}}
                             </span>
+                        </span>
+                        <span>
+                            <button class="btn btn-xs btn-owner-edit-tags" mouse-enter-toggle-class="btn-mt-o-success"
+                                    base-class="btn-mt-o-primary"
+                                    ng-if="vm.isOwner(vm.torrentLocalInfo) || vm.user.isOper"
+                                    ng-click="vm.editTags($event);">
+                                {{'ADMIN_BASIC_EDIT_TAGS' | translate}}
+                            </button>
                         </span>
                     </div>
                 </dd>
@@ -884,7 +924,7 @@
                                         ng-click="vm.updateTorrentNfo()">
                                     {{'SAVE_THIS_MEDIA_INFO' | translate}}
                                 </button>
-                                <button class="btn btn-xs margin-top-15 btn-width-80" mouse-enter-toggle-class="btn-mt-o-success"
+                                <button class="btn btn-xs margin-top-15 btn-min-width-80" mouse-enter-toggle-class="btn-mt-o-success"
                                         base-class="btn-mt-o-primary"
                                         ng-if="vm.isOwner(vm.torrentLocalInfo) || vm.user.isOper"
                                         ng-click="vm.CancelTorrentNfo()">
@@ -898,7 +938,7 @@
                 <dt class="h-line"></dt>
                 <dd class="h-line">
                     <div class="down-torrent">
-                        <button class="btn btn-success btn-width-100" ng-click="vm.DLS.downloadTorrent(vm.torrentLocalInfo._id)"
+                        <button class="btn btn-success btn-min-width-100" ng-click="vm.DLS.downloadTorrent(vm.torrentLocalInfo._id)"
                                 translate="DOWNLOAD_TORRENT"></button>
                         <span torrent-file-link-button="vm.torrentLocalInfo" torrent-user="vm.user" info-class="btn-default"></span>
                     </div>
@@ -1007,7 +1047,7 @@
                         ng-click="vm.beginSaveScreenshots()">
                     {{'SAVE_THIS_SCREENSHOTS' | translate}}
                 </button>
-                <button class="btn btn-xs btn-mt-o margin-top-15 btn-width-80" mouse-enter-toggle-class="btn-mt-o-success"
+                <button class="btn btn-xs btn-mt-o margin-top-15 btn-min-width-80" mouse-enter-toggle-class="btn-mt-o-success"
                         base-class="btn-mt-o-primary"
                         ng-if="vm.isEditScreenshots && (vm.isOwner(vm.torrentLocalInfo) || vm.user.isOper)"
                         ng-click="vm.CancelScreenshots()">
@@ -1056,7 +1096,11 @@
                         <tr class="torrent-list-info" ng-repeat="item in vm.seederPagedItems"
                             ng-if="item.peer_status == 'seeder'">
                             <td class="text-center">
-                                <span user-info="item.user" info-name></span>
+                                <span ng-if="!vm.isOwnerPeer(vm.torrentLocalInfo, item)" user-info="item.user" info-name></span>
+                                <span ng-if="vm.isOwnerPeer(vm.torrentLocalInfo, item) && (!vm.torrentLocalInfo.isAnonymous || vm.user.isOper)" user-info="item.user"
+                                      info-name></span>
+                                <span ng-if="vm.isOwnerPeer(vm.torrentLocalInfo, item) && (vm.torrentLocalInfo.isAnonymous && !vm.user.isOper)">{{ 'ANONYMOUS' | translate }}</span>
+
                                 <span ip-flag="item" class="peer-ip-flags" ip-class="ip-flags"></span>
                                 <!--<span vip-flag="item.user"></span>-->
                                 <!--<span message-to="item.user" to-class="message-to-icon"></span>-->
@@ -1105,7 +1149,11 @@
                         <tr class="torrent-list-info" ng-repeat="item in vm.leecherPagedItems"
                             ng-if="item.peer_status == 'leecher'">
                             <td class="text-center">
-                                <span user-info="item.user" info-name></span>
+                                <span ng-if="!vm.isOwnerPeer(vm.torrentLocalInfo, item)" user-info="item.user" info-name></span>
+                                <span ng-if="vm.isOwnerPeer(vm.torrentLocalInfo, item) && (!vm.torrentLocalInfo.isAnonymous || vm.user.isOper)" user-info="item.user"
+                                      info-name></span>
+                                <span ng-if="vm.isOwnerPeer(vm.torrentLocalInfo, item) && (vm.torrentLocalInfo.isAnonymous && !vm.user.isOper)">{{ 'ANONYMOUS' | translate }}</span>
+
                                 <span ip-flag="item" class="peer-ip-flags" ip-class="ip-flags"></span>
                                 <!--<span vip-flag="item.user"></span>-->
                                 <!--<span message-to="item.user" to-class="message-to-icon"></span>-->
@@ -1166,7 +1214,7 @@
                             <td class="col-md-8 td-v-middle td-text-overflow">
                                 <div class="other-torrent-info">
                                     <div class="torrent-filename text-long"><a
-                                            ui-sref="torrents.view({torrentId: item._id})">{{item.torrent_filename}}</a></div>
+                                            ui-sref="torrents.view({torrentId: item._id})">{{vm.TGI.getTorrentCustomTitle(item)}}</a></div>
 
                                     <div class="list-all-tags margin-top-10">
                                         <span ng-if="vm.torrentLocalInfo.resource_detail_info.release_date">
@@ -1197,11 +1245,10 @@
                                                 {{ 'RESOURCESTAGS.' + vm.RTS.getTagTitle(t) + '.' + t.toUpperCase() | translate}}
                                             </span>
                                         </span>
-                                        <span class="label label-download text-uppercase"
-                                              title="{{ 'TITLE_ALT.DOWNLOAD_TORRENT' | translate}}"
-                                              ng-click="vm.DLS.downloadTorrent(item._id); $event.stopPropagation();">
-                                        <i class="glyphicon glyphicon-arrow-down"></i>
-                                    </span>
+
+                                        <span torrent-file-download-link="item" info-class="label label-torrent-link"></span>
+
+                                        <span torrent-file-link-label="item" torrent-user="vm.user" info-class="label label-torrent-link"></span>
                                     </div>
                                 </div>
                             </td>
@@ -1224,8 +1271,8 @@
                                 </p>
                             </td>
                             <td class="col-md-1 td-v-middle text-center td-uploader">
-                                <span ng-if="!item.isAnonymous" user-info="item.user" info-name></span>
-                                <span ng-if="item.isAnonymous">{{ 'ANONYMOUS' | translate }}</span>
+                                <span ng-if="!item.isAnonymous || vm.user.isOper" user-info="item.user" info-name></span>
+                                <span ng-if="item.isAnonymous && !vm.user.isOper">{{ 'ANONYMOUS' | translate }}</span>
 
                                 <div maker-info="item.maker"></div>
                             </td>
@@ -1335,7 +1382,7 @@
                     </button>
                 </dd>
 
-                <div class="margin-top-20" ng-if="vm.torrentLocalInfo.torrent_type=='movie' && vm.showCollectionCommand()">
+                <div class="margin-top-20" ng-if="vm.torrentLocalInfo.torrent_type=='movie' && vm.collectionsConfig.enable && vm.showCollectionCommand()">
                     <dt class="h-line">{{ 'ADMIN_COLLECTION_COMMAND' | translate}}:</dt>
                     <dd class="h-line">
                         <button class="btn btn-default btn-sm"

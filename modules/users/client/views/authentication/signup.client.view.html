@@ -12,10 +12,13 @@
                     <fieldset>
                         <div class="form-group" show-errors>
                             <input type="text" id="firstName" name="firstName" class="form-control" ng-model="vm.credentials.firstName"
-                                   placeholder="{{ 'STATUS_FIELD.DISPLAY_NAME' | translate}}" required autofocus>
+                                   placeholder="{{ 'STATUS_FIELD.DISPLAY_NAME' | translate}}" ng-maxlength="vm.signConfig.displayNameMaxLength"
+                                   required autofocus>
 
                             <div ng-messages="vm.userForm.firstName.$error" role="alert">
                                 <p class="help-block error-text" ng-message="required">{{ 'SIGN.DN_REQUIRED' | translate}}</p>
+                                <p class="help-block error-text" ng-message="maxlength" translate="SIGN.DN_MAX_LENGTH"
+                                   translate-values="{maxLength: vm.signConfig.displayNameMaxLength}"></p>
                             </div>
                         </div>
                         <div class="form-group" show-errors>
@@ -61,7 +64,7 @@
                                     style="color:white; white-space:nowrap;">{{requirementsProgress}}%</span></uib-progressbar>
                         </div>
                         <div class="text-center form-group">
-                            <button type="submit" class="btn btn-success btn-width-100"
+                            <button type="submit" class="btn btn-success btn-min-width-100"
                                     ng-disabled="vm.isSendingMail">{{ 'SIGN.BTN_SIGN_UP' | translate}}
                             </button>
                             &nbsp; or&nbsp;

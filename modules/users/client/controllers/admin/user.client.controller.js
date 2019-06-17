@@ -7,11 +7,11 @@
 
   UserController.$inject = ['$scope', '$state', '$window', 'Authentication', 'userResolve', 'Notification', 'NotifycationService', 'MeanTorrentConfig',
     'AdminService', 'ScoreLevelService', 'DebugConsoleService', 'TorrentGetInfoServices', 'SideOverlay', 'MakerGroupService', '$filter', '$translate',
-    'marked'];
+    'marked', 'ModalConfirmService', 'MedalsService', 'MedalsInfoServices', 'localStorageService'];
 
   function UserController($scope, $state, $window, Authentication, user, Notification, NotifycationService, MeanTorrentConfig,
                           AdminService, ScoreLevelService, mtDebug, TorrentGetInfoServices, SideOverlay, MakerGroupService, $filter, $translate,
-                          marked) {
+                          marked, ModalConfirmService, MedalsService, MedalsInfoServices, localStorageService) {
     var vm = this;
     vm.TGI = TorrentGetInfoServices;
     vm.authentication = Authentication;
@@ -30,9 +30,14 @@
     vm.scoreLevelData = ScoreLevelService.getScoreLevelJson(vm.user.score);
     vm.inputLengthConfig = MeanTorrentConfig.meanTorrentConfig.inputLength;
     vm.inviteConfig = MeanTorrentConfig.meanTorrentConfig.invite;
+    vm.medalsConfig = MeanTorrentConfig.meanTorrentConfig.medals;
+    vm.homeConfig = MeanTorrentConfig.meanTorrentConfig.home;
 
     vm.searchTags = [];
     vm.maker = {};
+
+    angular.element(document).ready(function () {
+    });
 
     vm.setUserScorePopover = {
       title: 'SCORE_TITLE',
@@ -63,6 +68,14 @@
     };
 
     mtDebug.info(vm.user);
+
+    /**
+     * initTopBackground
+     */
+    vm.initTopBackground = function () {
+      var url = localStorageService.get('body_background_image') || vm.homeConfig.bodyBackgroundImage;
+      $('.backdrop').css('backgroundImage', 'url("' + url + '")');
+    };
 
     /**
      * $watch 'vm.user'
@@ -326,12 +339,47 @@
      */
     vm.onUserStatusChanged = function () {
       var user = vm.user;
-      AdminService.setUserStatus({
-        userId: user._id,
-        userStatus: vm.selectedStatus
-      })
-        .then(onSuccess)
-        .catch(onError);
+
+      if (vm.selectedStatus === 'banned') {
+        var modalOptions = {
+          closeButtonText: $translate.instant('BANNED.CONFIRM_CANCEL'),
+          actionButtonText: $translate.instant('BANNED.CONFIRM_OK'),
+          headerText: $translate.instant('BANNED.CONFIRM_HEADER_TEXT'),
+          bodyText: $translate.instant('BANNED.CONFIRM_BODY_TEXT', {uname: user.displayName}),
+
+          selectOptions: {
+            enable: true,
+            title: 'BANNED.REASON_TITLE',
+            options: [
+              'BANNED.REASON_ILLEGAL_SIGN_IN',
+              'BANNED.REASON_ACCOUNT_TRADE',
+              'BANNED.REASON_EXAMINATION_NOT_FINISHED',
+              'BANNED.REASON_VIOLATED_RULES'
+            ]
+          }
+        };
+        ModalConfirmService.showModal({}, modalOptions)
+          .then(function (result) {
+            var reason = result.reason;
+            if (reason === 'CUSTOM') reason = result.custom;
+
+            AdminService.setUserStatus({
+              userId: user._id,
+              userStatus: vm.selectedStatus,
+              banReason: reason
+            })
+              .then(onSuccess)
+              .catch(onError);
+          });
+      } else {
+        AdminService.setUserStatus({
+          userId: user._id,
+          userStatus: vm.selectedStatus,
+          banReason: ''
+        })
+          .then(onSuccess)
+          .catch(onError);
+      }
 
       function onSuccess(response) {
         vm.user = response;
@@ -500,6 +548,108 @@
 
       var res = time + ' - ' + con;
       return marked(res, {sanitize: false});
+    };
+
+    /**
+     * addMedal
+     * @param evt
+     */
+    vm.addMedal = function (evt) {
+      SideOverlay.open(evt, 'medalsPopupSlide');
+
+      vm.medals = MedalsInfoServices.getMedalsAdminHelp();
+    };
+
+    /**
+     * hasMedal
+     * @param md
+     * @returns {boolean}
+     */
+    vm.hasMedal = function (md) {
+      var has = false;
+      angular.forEach(vm.userMedals, function (m) {
+        if (m.medalName === md.name) {
+          has = true;
+        }
+      });
+      return has;
+    };
+
+    /**
+     * hideMedalsPopup
+     */
+    vm.hideMedalsPopup = function () {
+      SideOverlay.close(null, 'medalsPopupSlide');
+    };
+
+    /**
+     * addMedalToUser
+     * @param md
+     */
+    vm.addMedalToUser = function (md) {
+      if (vm.hasMedal(md)) {
+        MedalsService.remove({
+          userId: vm.user._id,
+          medalName: md.name
+        }, function (res) {
+          vm.removeMedalFromUserLocalMedals(res);
+          vm.getUserHistory();
+          NotifycationService.showSuccessNotify('MEDALS.REMOVE_SUCCESSFULLY');
+        }, function (res) {
+          NotifycationService.showErrorNotify(res.data.message, 'MEDALS.REMOVE_FAILED');
+        });
+      } else {
+        MedalsService.update({
+          userId: vm.user._id,
+          medalName: md.name
+        }, function (res) {
+          vm.userMedals.push(res);
+          vm.userMedals = MedalsInfoServices.mergeMedalsProperty(vm.userMedals);
+          vm.getUserHistory();
+          NotifycationService.showSuccessNotify('MEDALS.ADD_SUCCESSFULLY');
+        }, function (res) {
+          NotifycationService.showErrorNotify(res.data.message, 'MEDALS.ADD_FAILED');
+        });
+      }
+    };
+
+    /**
+     * removeMedalFromUserLocalMedals
+     * @param md
+     */
+    vm.removeMedalFromUserLocalMedals = function (md) {
+      angular.forEach(vm.userMedals, function (m) {
+        if (m.medalName === md.medalName) {
+          vm.userMedals.splice(vm.userMedals.indexOf(m), 1);
+        }
+      });
+    };
+
+    /**
+     * getUserMedals
+     */
+    vm.getUserMedals = function () {
+      MedalsService.query({
+        userId: vm.user._id
+      }, function (medals) {
+        vm.userMedals = MedalsInfoServices.mergeMedalsProperty(medals);
+      });
+    };
+
+    /**
+     * getTooltipHtml
+     * @param mt
+     * @returns {string|Object}
+     */
+    vm.getTooltipHtml = function (mt) {
+      var h = $translate.instant('MEDALS.DESC.' + mt.prefix.toUpperCase());
+      h += '<br><span class="tooltip-award-at">';
+      h += $translate.instant('MEDALS.AWARD_AT');
+      h += ': ';
+      h += $filter('date')(mt.createdAt, 'yyyy-MM-dd HH:mm:ss');
+      h += '</span';
+
+      return h;
     };
   }
 }());

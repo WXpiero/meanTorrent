@@ -5,10 +5,10 @@
     .directive('torrentListItem', torrentListItem);
 
   function torrentListItem() {
-    var TorrentsItemController = ['$scope', '$state', 'TorrentGetInfoServices', 'ResourcesTagsServices', '$timeout', 'DownloadService', 'MeanTorrentConfig',
-      'TorrentsService', 'Authentication', 'NotifycationService', 'ModalConfirmService', '$translate', 'moment',
-      function ($scope, $state, TorrentGetInfoServices, ResourcesTagsServices, $timeout, DownloadService, MeanTorrentConfig, TorrentsService, Authentication,
-                NotifycationService, ModalConfirmService, $translate, moment) {
+    var TorrentsItemController = ['$scope', '$rootScope', '$state', 'TorrentGetInfoServices', 'ResourcesTagsServices', '$timeout', 'DownloadService', 'MeanTorrentConfig',
+      'TorrentsService', 'Authentication', 'NotifycationService', 'ModalConfirmService', '$translate', 'moment', 'FavoritesService',
+      function ($scope, $rootScope, $state, TorrentGetInfoServices, ResourcesTagsServices, $timeout, DownloadService, MeanTorrentConfig, TorrentsService, Authentication,
+                NotifycationService, ModalConfirmService, $translate, moment, FavoritesService) {
         var vm = this;
 
         vm.user = Authentication.user;
@@ -292,6 +292,7 @@
             _torrentId: item._id
           }, function (res) {
             $scope.list[$scope.list.indexOf(item)] = res;
+            $rootScope.$broadcast('new-torrents-changed');
             NotifycationService.showSuccessNotify('TORRENT_SETREVIEWED_SUCCESSFULLY');
           }, function (res) {
             NotifycationService.showErrorNotify(res.data.message, 'TORRENT_SETREVIEWED_ERROR');
@@ -360,6 +361,36 @@
           }
         };
 
+        /**
+         * addTorrentToFavorite
+         * @param t
+         */
+        vm.addTorrentToFavorite = function (t) {
+          FavoritesService.addTorrent({
+            torrentId: t._id
+          }, function (res) {
+            if ($scope.parent.myFavoritesList) {
+              $scope.parent.myFavoritesList.push(res);
+            }
+            NotifycationService.showSuccessNotify('FAVORITES.ADD_FAVORITE_SUCCESSFULLY');
+          }, function (res) {
+            NotifycationService.showErrorNotify(res.data.message, 'FAVORITES.ADD_FAVORITE_ERROR');
+          });
+        };
+
+        /**
+         * removeTorrentFromFavorite
+         * @param item
+         */
+        vm.removeTorrentFromFavorite = function () {
+          FavoritesService.remove({favoriteId: $scope.favoriteItem._id}, function (res) {
+            // $scope.parent.figureOutItemsToDisplay();
+            $scope.list.splice($scope.list.indexOf($scope.favoriteItem), 1);
+            NotifycationService.showSuccessNotify('FAVORITES.REMOVE_FAVORITE_SUCCESSFULLY');
+          }, function (res) {
+            NotifycationService.showErrorNotify(res.data.message, 'FAVORITES.REMOVE_FAVORITE_ERROR');
+          });
+        };
       }];
 
     return {
@@ -372,7 +403,8 @@
         list: '=',
         peer: '=',
         warning: '=',
-        parent: '='
+        parent: '=',
+        favoriteItem: '='
       }
     };
   }

@@ -6,16 +6,52 @@
     .controller('StatusController', StatusController);
 
   StatusController.$inject = ['$scope', '$state', '$timeout', '$translate', 'Authentication', 'UsersService', 'ScoreLevelService', 'MeanTorrentConfig', 'ModalConfirmService',
-    'NotifycationService', 'moment'];
+    'NotifycationService', 'moment', 'localStorageService', 'MedalsService', 'MedalsInfoServices', '$filter'];
 
   function StatusController($scope, $state, $timeout, $translate, Authentication, UsersService, ScoreLevelService, MeanTorrentConfig, ModalConfirmService,
-                            NotifycationService, moment) {
+                            NotifycationService, moment, localStorageService, MedalsService, MedalsInfoServices, $filter) {
     var vm = this;
     vm.user = Authentication.user;
     vm.scoreLevelData = ScoreLevelService.getScoreLevelJson(vm.user.score);
     vm.announce = MeanTorrentConfig.meanTorrentConfig.announce;
     vm.signConfig = MeanTorrentConfig.meanTorrentConfig.sign;
     vm.hnrConfig = MeanTorrentConfig.meanTorrentConfig.hitAndRun;
+    vm.homeConfig = MeanTorrentConfig.meanTorrentConfig.home;
+
+    /**
+     * initTopBackground
+     */
+    vm.initTopBackground = function () {
+      var url = localStorageService.get('body_background_image') || vm.homeConfig.bodyBackgroundImage;
+      $('.backdrop').css('backgroundImage', 'url("' + url + '")');
+    };
+
+    /**
+     * getMyMedals
+     */
+    vm.getMyMedals = function () {
+      MedalsService.query({
+        userId: vm.user._id
+      }, function (medals) {
+        vm.userMedals = MedalsInfoServices.mergeMedalsProperty(medals);
+      });
+    };
+
+    /**
+     * getTooltipHtml
+     * @param mt
+     * @returns {string|Object}
+     */
+    vm.getTooltipHtml = function (mt) {
+      var h = $translate.instant('MEDALS.DESC.' + mt.prefix.toUpperCase());
+      h += '<br><span class="tooltip-award-at">';
+      h += $translate.instant('MEDALS.AWARD_AT');
+      h += ': ';
+      h += $filter('date')(mt.createdAt, 'yyyy-MM-dd HH:mm:ss');
+      h += '</span';
+
+      return h;
+    };
 
     /**
      * unIdle

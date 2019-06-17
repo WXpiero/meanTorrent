@@ -24,6 +24,7 @@
     VALUE_SELECT_ALL: '全选',
     BTN_REMOVE: '删除',
     BTN_CONTINUE: '继续',
+    BTN_CANCEL: '取消',
     VALUE_TRUE: '是',
     VALUE_FALSE: '否',
     VALUE_ON: '开',
@@ -50,7 +51,9 @@
     MENU_ADMIN_TICKETS: '客户服务中心',
     MENU_USERS_ADMIN: '用户管理',
     MENU_UPLOAD: '发布',
+    MENU_MEDALS: '勋章',
     MENU_FORUMS: '论坛',
+    MENU_MORE: '更多',
     MENU_REQUESTS: '求种',
     MENU_ABOUT: '关于',
     MENU_ABOUT_MANUAL: '用户手册',
@@ -90,6 +93,8 @@
     MENU_MY_INVITE: '我的邀请',
     MENU_MY_DATA_CENTER: '数据中心',
     MENU_ACCOUNT_STATUS: '帐户状态',
+    MENU_TORRENTS_STATUS: '种子状态',
+    MENU_MY_FAVORITE: '我的{{"FAVORITES.NAME" | translate}}',
     EDIT_PROFILE: '修改个人信息',
     EDIT_PROFILE_PIC: '修改个人头像',
     EDIT_SIGNATURE: '修改论坛签名',
@@ -250,6 +255,7 @@
       VIP: 'Vip',
       VIP_DONATE: '捐赠VIP',
       VIP_RULES: 'Vip用户协议',
+      MEDALS: '勋章墙',
       FORUM: '论坛',
       REQUESTS: '求种',
       REQUESTS_MY: '我的求种',
@@ -278,6 +284,7 @@
       MESSAGES_BOX: '站内消息',
       MESSAGES_SEND: '发送消息',
       STATUS_ACCOUNT: '帐户状态',
+      STATUS_TORRENTS: '种子状态',
       STATUS_UPLOADED: '我的种子',
       STATUS_SEEDING: '正在做种',
       STATUS_LEECHING: '正在下载',
@@ -316,6 +323,7 @@
       P_REQUIRED: '密码不能为空.',
       FORGOT_PASSWORD: '忘记了密码?',
       DN_REQUIRED: '显示昵称不能为空.',
+      DN_MAX_LENGTH: '显示昵称长度不能超过 {{maxLength}} 字符',
       RO_REQUIRED: '角色不能为空.',
       SENDING_MAIL: '正在发送验证邮件，请稍等...',
       SIGNIN_ERROR: '登录失败!',
@@ -356,7 +364,6 @@
     CA_TORRENT_SALE_STATUS: '促销状态',
     CA_TORRENT_SALE_NOW: '正在促销',
     CA_TORRENT_VIP: 'VIP 资源',
-    CA_TORRENT_TOP: '置顶状态',
     CA_TORRENT_UNIQUE: '禁转状态',
     CA_RESOURCE_TYPE: '资源类型',
     DESC_MAKE_RSS_URL: '根据当前检索条件生成的 RSS 地址, 点击复制到粘贴版.',
@@ -365,6 +372,7 @@
     COPY_LINK_TEXT: '复制种子文件地址',
     COPY_TO_CLIPBOARD_SUCCESSFULLY: '内容已复制到剪切板!',
     TORRENT_LABEL_LINK: '种子连接',
+    TORRENT_DOWNLOAD_LINK: '下载种子',
     PH_KEYWORD: '搜索关键字',
     FILTER_KEYWORD: '过滤关键字',
     CLEAR_ALL_CONDITION: '清空所有条件',
@@ -413,10 +421,10 @@
     VIDEO_SIZE: '视频文件大小',
     UPLOAD_TIME: '上传时间',
     SALE_EXPIRES_TIME: '过期',
-    TORRENT_STATUS_TOP_TITLE: '置顶推荐',
+    TORRENT_STATUS_TOP_TITLE: '特别推荐',
     TORRENT_STATUS_UNIQUE: '禁转资源',
     TORRENT_STATUS_UNIQUE_TITLE: '禁转资源，禁止转发',
-    STATUS_TOP_KEY: '置顶',
+    STATUS_TOP_KEY: '特推',
     STATUS_UNIQUE_KEY: '禁转',
     UPLOAD_SUBTITLE: '上传字幕文件',
     SUBTITLE_LIST: '字幕列表',
@@ -452,15 +460,15 @@
     ADMIN_BASIC_SET_VIP: '设置VIP',
     ADMIN_BASIC_EDIT_TAGS: '编辑标签',
     ADMIN_BASIC_UNSET_VIP: '取消VIP',
-    ADMIN_BASIC_SET_TOP: '设为置顶',
-    ADMIN_BASIC_UNSET_TOP: '取消置顶',
+    ADMIN_BASIC_SET_TOP: '设为特推',
+    ADMIN_BASIC_UNSET_TOP: '取消特推',
     ADMIN_BASIC_SET_UNIQUE: '设为禁转',
     ADMIN_BASIC_UNSET_UNIQUE: '取消禁转',
     ADMIN_BASIC_TYPE_SET: '设置促销',
     ADMIN_SALE_TYPE_SET: '种子促销类型',
-    ADMIN_BASIC_RLEVEL_SET: '推荐级别',
+    ADMIN_BASIC_RLEVEL_SET: '置顶级别',
     ADMIN_UPLOAD_ACCESS: '上传权限',
-    ADMIN_RLEVEL_SET: '推荐级别设置',
+    ADMIN_RLEVEL_SET: '置顶级别设置',
     ADMIN_COLLECTION_COMMAND: '电影系列操作命令',
     ADMIN_COLLECTION_CREATE: '创建新系列',
     ADMIN_COLLECTION_ADDINTO: '将电影加入到系列',
@@ -479,7 +487,7 @@
     TORRENT_DELETE_SUCCESSFULLY: '种子删除成功',
     TORRENT_DELETE_ERROR: '种子删除失败',
     TORRENT_DELETE_REASON: '请选择或输入一个删除种子的理由给上传者:',
-    TORRENT_ENTER_DELETE_REASON: '请输入自定义删除理由',
+    TORRENT_ENTER_DELETE_REASON: '请输入自定义操作理由',
     TORRENT_DELETE_REASON_OVERVIEW: '种子简介信息缺少或者不完整',
     TORRENT_DELETE_REASON_NFO: '种子NFO信息缺少或者不完整',
     TORRENT_DELETE_REASON_QUALITY: '种子资源质量太低下',
@@ -494,14 +502,14 @@
     TORRENT_SETSALETYPE_ERROR: '种子促销类型设置失败',
     TORRENT_SETREVIEWED_SUCCESSFULLY: '种子审核状态设置成功',
     TORRENT_SETREVIEWED_ERROR: '种子审核状态设置失败',
-    TORRENT_SETRLEVEL_SUCCESSFULLY: '种子推荐级别设置成功',
-    TORRENT_SETRLEVEL_ERROR: '种子推荐级别设置失败',
+    TORRENT_SETRLEVEL_SUCCESSFULLY: '种子置顶级别设置成功',
+    TORRENT_SETRLEVEL_ERROR: '种子置顶级别设置失败',
     TORRENT_TOGGLE_HNR_SUCCESSFULLY: '改变种子HnR标签成功',
     TORRENT_TOGGLE_HNR_FAILED: '改变种子HnR标签失败',
     TORRENT_TOGGLE_VIP_SUCCESSFULLY: '改变种子VIP标签成功',
     TORRENT_TOGGLE_VIP_FAILED: '改变种子VIP标签失败',
-    TORRENT_TOGGLE_TOP_SUCCESSFULLY: '改变种子置顶状态成功',
-    TORRENT_TOGGLE_TOP_FAILED: '改变种子置顶状态失败',
+    TORRENT_TOGGLE_TOP_SUCCESSFULLY: '改变种子特推状态成功',
+    TORRENT_TOGGLE_TOP_FAILED: '改变种子特推状态失败',
     TORRENT_TOGGLE_UNIQUE_SUCCESSFULLY: '改变种子禁转状态成功',
     TORRENT_TOGGLE_UNIQUE_FAILED: '改变种子禁转状态失败',
     TORRENT_SETTAGS_SUCCESSFULLY: '种子属性标签设置成功',
@@ -575,6 +583,9 @@
     SELECT_MAKER_GROUP: '&bull; 请选择您上传时使用的资源小组',
     MAKER_NULL: '无',
     UPLOADER_ANONYMOUS: '匿名上传（用户不会看到我是上传者）',
+    SELECT_VIP_PROPERTY: '&bull; 请选择是否设置资源的 VIP 属性',
+    IS_VIP_RESOURCES_TIP: '提示：如果这是一个 VIP 资源，请选中下面的按钮，系统会自动将此资源归入 VIP 专区。',
+    IS_VIP_RESOURCES: '为此资源设置 VIP 属性',
     ANONYMOUS: '匿名',
     TORRENTS_SUBMIT_UPLOAD: '&bull; 同意上传协议，并提交',
     SUBMIT_BUTTON: '已备妥，现在提交',
@@ -595,9 +606,13 @@
     ERROR_IMAGE_LINK_URL: '不可用的图片连接地址',
     FILE_TYPE_ERROR: '文件类型不被接受',
 
+    REDUPLICATE_CHECK: '&bull; 系统检测到该资源已有下列不同版本存在',
+    REDUPLICATE_TIP: '提示：系统检测到资源的其它版本，请确认您提交的是更优质的或是不重复的版本，否则，您的提交可能不会被审核通过或被管理员直接删除，您需要继续吗？',
     ENTER_RESOURCE_TITLE: '&bull; 请输入资源主副标题',
     RESOURCE_TITLE: '资源主标题',
     RESOURCE_SUB_TITLE: '资源副标题',
+    JOINED_COLLECTIONS: '所属系列',
+    JOINED_ALBUMS: '所属专辑',
     SELECT_RESOURCE_IMAGE: '&bull; 请选择资源封面图片',
     ENTER_RESOURCE_DETAIL_INFO: '&bull; 请输入资源详细信息',
 
@@ -624,12 +639,12 @@
     TORRENT_STATUS_REVIEWED: '已审核',
     TORRENT_STATUS_DELETED: '已删除',
     TORRENT_STATUS_ALL: '全部',
-    TORRENT_RECOMMEND_LEVEL: '推荐级别',
+    TORRENT_RECOMMEND_LEVEL: '置顶级别',
     TORRENT_RECOMMEND_LEVEL_ITEM: {
       LEVEL0: '无',
-      LEVEL1: '一级推荐',
-      LEVEL2: '二级推荐',
-      LEVEL3: '三级推荐'
+      LEVEL1: '一级置顶',
+      LEVEL2: '二级置顶',
+      LEVEL3: '三级置顶'
     },
 
     SET_ROLE_SUCCESSFULLY: '用户角色权限设置成功',
@@ -642,6 +657,19 @@
     SET_VIP_MONTHS_FAILED: '更新用户vip状态数据失败',
     RESET_VIP_DATA_SUCCESSFULLY: '重置用户vip状态数据成功',
     RESET_VIP_DATA_FAILED: '重置用户vip状态数据失败',
+
+    BANNED: {
+      CONFIRM_CANCEL: '取消',
+      CONFIRM_OK: '确定',
+      CONFIRM_HEADER_TEXT: 'Banned 确认',
+      CONFIRM_BODY_TEXT: '您确定要 ban 掉用户 {{uname}} 吗?',
+      REASON_TITLE: '请选择或自定义一个理由通知用户:',
+      REASON_ILLEGAL_SIGN_IN: '非法的注册',
+      REASON_ACCOUNT_TRADE: '涉嫌帐户交易',
+      REASON_EXAMINATION_NOT_FINISHED: '考核未完成',
+      REASON_VIOLATED_RULES: '违返站内用户行为准则',
+      YOU_ARE_BANNED_FROM_INVITED_USER: '您邀请的用户 {{uname}} 被禁止，他被禁止是因为：{{uReason | translate}}'
+    },
 
     SCORE_NUMBER: '积分数',
     SCORE_TITLE: '添加积分',
@@ -737,7 +765,7 @@
       MAKER_CREATE_FAILED: '资源小组创建失败',
       OPER_LIST: 'Admin & Oper 列表',
       OPER_LIST_TOOLTIP: '<h4>提示:</h4>下面列出的所有用户都是 <strong>{{site}}</strong> 站点的 Administrator 或 Operator, 如果您需要帮助, 请给{{sNameDesc | translate}}发送 <strong><a href="/messages/send?to={{sName}}">消息</a></strong> 或 <strong><a href="mailto:{{sMail}}">邮件</a></strong> 或者向下面列出的管理员直接发送站内消息.',
-      MAKER_LIST_TOOLTIP: '下面列出的所有资源小组都是入驻 <strong>{{site}}</strong> 的官方小组, 感谢这些压制小组对站点做出的贡献, 如果您想加入其中的小组, 请向小组创始人发送站内消息并欢迎您成为其中的一份子.',
+      MAKER_LIST_TOOLTIP: '下面列出的所有资源小组都是入驻 <strong>{{site}}</strong> 的官方小组, 感谢这些资源小组为站点做出的贡献, 如果您也想加入我们的小组, 请向各小组创始人发送站内消息，我们热忱地欢迎您成为其中的一份子.',
       GROUP_FOUNDER: '创始人: ',
       BTN_EDIT_DESC: '编辑简介',
       BTN_ADD_USER: '添加新成员',
@@ -754,6 +782,7 @@
       DELETE_FAILED: '资源小组删除失败',
       RATING_SUCCESSFULLY: '为资源小组评分成功',
       RATING_FAILED: '为资源小组评分失败',
+      ALREADY_RATING: '您先前已为此小组评分',
       ADD_MEMBER_TITLE: '添加小组成员',
       ADD_MEMBER_SUCCESSFULLY: '添加小组成员成功',
       ADD_MEMBER_FAILED: '添加小组成员失败',
@@ -789,8 +818,8 @@
       DELETE_CONFIRM_BODY_TEXT: '您确定要删除这个电影系列?',
       DELETE_SUCCESSFULLY: '电影系列删除成功',
       DELETE_FAILED: '电影系列删除失败',
-      SETRLEVEL_SUCCESSFULLY: '修改系列的推荐级别成功',
-      SETRLEVEL_ERROR: '修改系列的推荐级别失败',
+      SETRLEVEL_SUCCESSFULLY: '修改系列的置顶级别成功',
+      SETRLEVEL_ERROR: '修改系列的置顶级别失败',
       REMOVE_CONFIRM_OK: '移除',
       REMOVE_CONFIRM_CANCEL: '取消',
       REMOVE_CONFIRM_HEADER_TEXT: '移除确认',
@@ -828,8 +857,8 @@
       DELETE_CONFIRM_BODY_TEXT: '您确定要删除这个资源专辑?',
       DELETE_SUCCESSFULLY: '资源专辑删除成功',
       DELETE_FAILED: '资源专辑删除失败',
-      SETRLEVEL_SUCCESSFULLY: '修改专辑的推荐级别成功',
-      SETRLEVEL_ERROR: '修改专辑的推荐级别失败',
+      SETRLEVEL_SUCCESSFULLY: '修改专辑的置顶级别成功',
+      SETRLEVEL_ERROR: '修改专辑的置顶级别失败',
       REMOVE_CONFIRM_OK: '移除',
       REMOVE_CONFIRM_CANCEL: '取消',
       REMOVE_CONFIRM_HEADER_TEXT: '移除确认',
@@ -860,6 +889,7 @@
     BUTTON_SELECT_PICTURE: '选择图片',
     BUTTON_USE_THIS_PICTURE: '应用图片',
     BUTTON_CANCEL: '取消',
+    BUTTON_CLOSE: '关闭',
     BUTTON_SAVE: '保存',
     BUTTON_SET: '设置',
     BUTTON_OK: '确定',
@@ -959,7 +989,7 @@
     },
 
     //user status
-    STATUS_ACCOUNT: '帐户状态',
+    STATUS_ACCOUNT: '我的帐户状态',
     STATUS_UPLOADED: '我上传的种子',
     STATUS_SEEDING: '正在做种的种子',
     STATUS_DOWNLOADING: '正在下载的种子',
@@ -988,6 +1018,7 @@
       BTN_VIEW_USER_DATA_CENTER: '数据中心',
       BTN_EDIT: '编辑',
       BTN_REMOVE: '删除',
+      BTN_ADD_MEDAL: '颁发勋章',
       PICTURE: '头像',
       RESET_DEFAULT_PICTURE: '重置为默认图片',
       ADD_VIP_MONTHS: '+ VIP一个月',
@@ -1211,6 +1242,10 @@
     USER_UPLOADED_FLAG: '{{name}} 的上传量',
     USER_DOWNLOADED_FLAG: '{{name}} 的下载量',
     USER_SCORE_LEVEL: '{{name}} 的积分等级',
+    USER_RATIO_FLAG: '{{name}} 的分享率',
+    USER_MEDAL_FLAG: '{{name}} 的勋章总数',
+    USER_SEEDING_FLAG: '{{name}} 的当前做种数',
+    USER_LEECHING_FLAG: '{{name}} 当前下载数',
 
     //traces
     ADMIN_TRACES_LIST: '系统日志',
@@ -1456,6 +1491,71 @@
       }
     },
 
+    // favorites
+    FAVORITES: {
+      NAME: '矿车',
+      DESC: '* 您的{{"FAVORITES.NAME" | translate}}相当于您的收藏夹，您只需要在种子列表页点击 [加入] 按钮将您喜欢的资源加入进来，系统会自动为您生一个RSS连接地址，如果您把下面这个地址加入到您的下载客户端并设置为自动下载，您的客户端会定时查询您的收藏并自动开始下载最新加入的种子。\n* 为节省系统资源，RSS只会向客户端返回最近加入的 {{rssNumber}} 条收藏记录，但服务器会保留您所有收藏条目，为您在系统更新后或数据丢失后的重新下载提供方便。请注意，此RSS地址包含您个人的敏感信息，请不要共享给其它人。',
+      TORRENT_TO_FAVORITE_TITLE: '添加种子到您的{{"FAVORITES.NAME" | translate}}',
+      TORRENT_REMOVE_FAVORITE_TITLE: '移出种子从您的{{"FAVORITES.NAME" | translate}}',
+      ADD_FAVORITE_SUCCESSFULLY: '添加种子到您的{{"FAVORITES.NAME" | translate}}成功',
+      ADD_FAVORITE_ERROR: '添加种子到您的{{"FAVORITES.NAME" | translate}}失败',
+      REMOVE_FAVORITE_SUCCESSFULLY: '从您的 {{"FAVORITES.NAME" | translate}} 中移除种子成功',
+      REMOVE_FAVORITE_ERROR: '从您的 {{"FAVORITES.NAME" | translate}} 中移除种子失败',
+      FAVORITES_IS_LOADING: '正在加载您的{{"FAVORITES.NAME" | translate}} ...',
+      FAVORITES_IS_EMPTY: '您的{{"FAVORITES.NAME" | translate}}里还没有任何资源'
+    },
+
+    // medals wall
+    MEDALS: {
+      MEDALS_TITLE: '勋章墙',
+      TYPES_COUNT: '勋章类型',
+      MEDALS_OPENED_COUNT: '勋章开放数',
+      MEDALS_AWARD_COUNT: '勋章颁发数',
+      SELECT_MEDAL_TO_USER: '请选择要颁发的勋章 - {{uname}}',
+      ADD_SUCCESSFULLY: '给用户添加勋章成功',
+      ADD_FAILED: '给用户添加勋章失败',
+      REMOVE_SUCCESSFULLY: '移除用户勋章成功',
+      REMOVE_FAILED: '移除用户勋章失败',
+      MEDALS_OVERVIEW: '勋章是用户身份及为站点所做的贡献的标识，勋章颁发分为系统自动颁发、管理员帮助颁发与用户自助颁发三种，自助颁发的勋章需要用户自已根据相应的条件自助申领。不同的勋章对应有不同的系统待遇，站点也会不定期的针对不同的勋章群体用户举办丰富多样的活动，敬请大家期待。',
+      CMD_LIST_USER: '查看用户',
+      CMD_REQUEST: '申请勋章',
+      HELP_CONDITION: '申请条件',
+      OWNED_USERS: '拥有用户',
+      USERS_IS_LOADING: '正在装载用户列表，请稍候...',
+      USERS_IS_EMPTY: '还没有任何用户拥有此勋章',
+      REQUEST_CONFIRM_CANCEL: '取消',
+      REQUEST_CONFIRM_OK: '确定',
+      REQUEST_CONFIRM_HEADER_TEXT: '申请勋章',
+      REQUEST_CONFIRM_BODY_TEXT: '您确定要使用 {{score}} 积分来申请这枚勋章吗?',
+      REQUEST_SUCCESSFULLY: '勋章申请成功',
+      REQUEST_ERROR: '勋章申请失败',
+      AWARD_AT: '授于',
+      CATS: {
+        WORKERS: '工作人员类勋章',
+        EVENTS: '特别事件类勋章',
+        COMMEMORATIVE: '站点纪念类勋章'
+      },
+      PASSHELP: {
+        SYS: '系统自动颁发',
+        ADMIN: '管理员颁发',
+        SELF: '用户自助申请'
+      },
+      DESC: {
+        ROOT: '系统管理员勋章',
+        SITE_BEGIN: '网站开张纪念勋章',
+        CLOSE_BETA: '站点内测勋章'
+      },
+      FOOTERSTRING: {
+        ROOT: '系统',
+        SITE_BEGIN: '周年',
+        CLOSE_BETA: '2018'
+      },
+      HEADERSTRING: {
+        SITE_BEGIN: '0',
+        CLOSE_BETA: '内测'
+      }
+    },
+
     // data center
     DATA_CENTER: {
       ITEM_SCORE: '积分数据分析',
@@ -1486,11 +1586,9 @@
     SCORE_LOG: {
       DEFAULT_ACTION: '未知事件获得的积分',
       ADMIN_MODIFY: '管理员 <a href=/userinfo/{{uid}}>{{uname}}</a> 修改积分',
-      TRANSFER_SCORE_INTO_INVITER_FROM: '结算上个月的积分给您的邀请人 <a href=/userinfo/{{uid}}>{{uname}}</a>',
-      TRANSFER_SCORE_INTO_INVITER_TO: '系统发放被邀请用户 <a href=/userinfo/{{uid}}>{{uname}}</a> 上个月的积分奖励',
       UPLOAD_TORRENT: '上传的种子被审核通过 <a href=/torrents/{{tid}}>{{tid}}</a>',
       UPLOAD_TORRENT_BE_DELETED: '上传的种子被删除 <a href=/torrents/{{tid}}>{{tid}}</a>',
-      UPLOAD_TORRENT_BE_RECOMMEND: '上传的种子被推荐 <a href=/torrents/{{tid}}>{{tid}}</a>',
+      UPLOAD_TORRENT_BE_RECOMMEND: '上传的种子被置顶 <a href=/torrents/{{tid}}>{{tid}}</a>',
       UPLOAD_SUBTITLE: '为种子上传字幕文件 <a href=/torrents/{{tid}}>{{tid}}</a>',
       UPLOAD_SUBTITLE_BE_DELETED: '上传的字幕文件被删除 <a href=/torrents/{{tid}}>{{tid}}</a>',
       THUMBS_UP_SCORE_OF_TORRENT_FROM: '为种子点赞 <a href=/torrents/{{tid}}>{{tid}}</a>',
@@ -1502,6 +1600,7 @@
       REQUEST_ACCEPT_TO: '您的响应被求种请求者接受 <a href=/requests/{{rid}}>{{rid}}</a>',
       SCORE_EXCHANGE_INVITATION: '兑换了一张邀请函',
       SCORETO_REMOVE_WARNING: '移除了一个 H&R 警告 <a href=/torrents/{{tid}}>{{tid}}</a>',
+      SCORETO_REQUEST_MEDAL: '申请勋章: {{medalDesc | translate}}',
       ACTIVE_IDLE_ACCOUNT: '重新激活帐户状态',
       DAILY_CHECK_IN: '每日签到',
       SEED_TIMED: '做种时间获得的积分 <a href=/torrents/{{tid}}>{{tid}}</a>',
@@ -1515,7 +1614,7 @@
       BAD_REQUEST: '请求错误',
       FORBIDDEN: '请求禁止',
       MADE_BAD_REQUEST: '您发起了一个无效的请求',
-      NOT_AUTHORIZED_THIS: '您无权访问此资源',
+      NOT_AUTHORIZED_THIS: '您无权访问此资源，如果您的 session 或 cookie 已过期，请 <a href="/authentication/signin">重新登录</a>。',
       NOT_FOUND: '无法访问',
       PAGE_NOT_FOUND: '没有找到页面或资源',
       ACCESS_DENY: '您的当前IP被限制访问此资源，如需帮助请给{{sNameDesc | translate}}发送 <strong><a href="/messages/send?to={{sName}}">消息</a></strong> 或 <strong><a href="mailto:{{sMail}}">邮件</a></strong>.'
@@ -1660,7 +1759,7 @@
         DTS_X: 'DTS:X',
         ATMOS: 'Atmos',
         DTS_HD: 'DTS-HD',
-        TRUE_HD: 'True-HD',
+        TRUE_HD: 'TrueHD',
         DTS: 'DTS',
         AC3: 'AC-3',
         AAC: 'AAC'
@@ -1809,14 +1908,17 @@
     //admin operate user account history message
     HISTORY: {
       ADMIN_UPDATE_USER_ROLE: '`{{by.displayName}}` 改变帐户角色为： `{{role}}`',
-      ADMIN_UPDATE_USER_STATUS: '`{{by.displayName}}` 改变帐户状态为: `{{status}}`',
+      ADMIN_UPDATE_USER_STATUS: '`{{by.displayName}}` 改变帐户状态为: `{{status}}`，理由: {{reason | translate}}',
       ADMIN_UPDATE_USER_SCORE: '`{{by.displayName}}` 修改帐户积分: `{{score}}`',
       ADMIN_UPDATE_USER_UPLOADED: '`{{by.displayName}}` 修改帐户上传量: `{{uploaded | bytes:2}}`',
       ADMIN_UPDATE_USER_DOWNLOADED: '`{{by.displayName}}` 修改帐户下载量: `{{downloaded | bytes:2}}`',
       ADMIN_UPDATE_USER_VIP_DATA: '`{{by.displayName}}` 修改帐户 VIP 数据: `{{months}}` 个月',
       ADMIN_PRESENT_USER_INVITATIONS: '`{{by.displayName}}` 赠送 `{{numbers}}` 个官方邀请函, 有效期 `{{days}}` 天',
       ADMIN_REMOVE_USER_HNR_WARNING: '`{{by.displayName}}` 移除 H&R 警告, complete id: `{{complete}}`',
-      ADMIN_CREATE_USER_MAKER_GROUP: '`{{by.displayName}}` 创建用户资源小组: `-={{name}}=-`'
+      ADMIN_CREATE_USER_MAKER_GROUP: '`{{by.displayName}}` 创建用户资源小组: `-={{name}}=-`',
+      ADMIN_ADD_USER_MEDAL: '`{{by.displayName}}` 添加用户勋章: `{{medalName}}`',
+      ADMIN_REMOVE_USER_MEDAL: '`{{by.displayName}}` 移除用户勋章: `{{medalName}}`',
+      ADMIN_BAN_USER_INVITER: '`{{by.displayName}}` 改变帐户状态为: `{{status}}`, 理由: 邀请的用户[{{uname}}]因为[{{reason | translate}}]被禁止'
     },
 
     //server returned string
@@ -1838,7 +1940,7 @@
       RESET_PASSWORD_TO_FREQUENT: '密码重置操作过于频繁, 您在 {{hours}} 小时内只能操作一次, 下次可操作时间为: {{nextTime | date: "yyyy-MM-dd HH:mm:ss"}}',
       INVALID_USERNAME: '无效的用户名!',
       INVALID_PASSWORD: '无效的密码!',
-      YOU_ARE_BANNED: '您已被服务器禁止(banned)!',
+      YOU_ARE_BANNED: '您已被服务器禁止(banned)，被禁止的理由为：{{reason}}',
       ACCOUNT_IS_NOT_ACTIVATED: '您的帐户未激活, 请激活后再试!',
       ONLY_VIP_CAN_DOWNLOAD: '该种子只有VIP用户才可以下载',
       CAN_NOT_DOWNLOAD_BANNED: '下载失败, 您被服务器禁止(banned)',
@@ -1858,7 +1960,10 @@
       UPLOAD_ACCESS_DENY: '当前系统只接受资源制作小组上传种子',
       READ_TORRENT_FILE_FAILD: '种子文件解析错误，请检查您的种子文件，看是否缺少某些必要信息',
       MOVE_TORRENT_FILE_ERROR: '种子文件移动错误，请不要快速重复进行提交操作或者上传的种子文件已丢失',
-      YOU_ALREADY_CHECK_IN: '您今天已经签过到了，不能重复签到'
+      YOU_ALREADY_CHECK_IN: '您今天已经签过到了，不能重复签到',
+      USER_ALREADY_HAS_THIS_MEDAL: '该用户已经拥有了这枚勋章',
+      USER_HAS_NOT_THIS_MEDAL: '该用户还没有这枚勋章',
+      TORRENT_ALREADY_IN_FAVORITES: '该种子已经存在于你的收藏夹'
     },
 
     //server message string, content string support markdown and emoji
@@ -1929,8 +2034,8 @@
       TITLE_TORRENT_HNR_CHANGED: '上传的种子 H&R 状态改变',
       CONTENT_TORRENT_HNR_CHANGED: '### H&R 状态改变! \n 您上传的种子 [{{torrent_file_name}}](/torrents/{{torrent_id}}) H&R 状态已经由管理员用户 [{{by_name}}](/userinfo/{{by_id}}) 修改, 当前状态为: **{{hnr_status}}**.',
 
-      TITLE_TORRENT_TOP_CHANGED: '上传的种子 置顶 状态改变',
-      CONTENT_TORRENT_TOP_CHANGED: '### 置顶 状态改变! \n 您上传的种子 [{{torrent_file_name}}](/torrents/{{torrent_id}}) 置顶 状态已经由管理员用户 [{{by_name}}](/userinfo/{{by_id}}) 修改, 当前状态为: **{{top_status}}**.',
+      TITLE_TORRENT_TOP_CHANGED: '上传的种子 特推 状态改变',
+      CONTENT_TORRENT_TOP_CHANGED: '### 特推 状态改变! \n 您上传的种子 [{{torrent_file_name}}](/torrents/{{torrent_id}}) 特推 状态已经由管理员用户 [{{by_name}}](/userinfo/{{by_id}}) 修改, 当前状态为: **{{top_status}}**.',
 
       TITLE_TORRENT_UNIQUE_CHANGED: '上传的种子 禁转 状态改变',
       CONTENT_TORRENT_UNIQUE_CHANGED: '### 禁转 状态改变! \n 您上传的种子 [{{torrent_file_name}}](/torrents/{{torrent_id}}) 禁转 状态已经由管理员用户 [{{by_name}}](/userinfo/{{by_id}}) 修改, 当前状态为: **{{unique_status}}**.',
@@ -1961,7 +2066,7 @@
     },
 
     SITE_NOTICE: {
-      GLOBAL_SALES_NOTICE: '### 重要通知! \n :radio: **新年快乐 2018**, **{{site_name}}** 新年促销活动已准备就绪, 促销活动类型为 <span class="sale_key">**{{sale_value}}**</span> , 活动将开始于 **{{sale_start_at | date: "yyyy-MM-dd HH:mm"}}** 并持续 <span class="sale_key">**{{sale_days}}**</span> 天, 结束于 **{{sale_end_at | date: "yyyy-MM-dd HH:mm"}}**, 并感谢所有会员用户一直以来给予我们的帮助与支持!',
+      GLOBAL_SALES_NOTICE: '### 重要通知! \n :radio: **开门大吉**, **{{site_name}}** 开门全免礼包已以准备就绪，全免级别为 <span class="sale_key">**{{sale_value}}**</span> , 活动将开始于 **{{sale_start_at | date: "yyyy-MM-dd HH:mm"}}** 并持续 <span class="sale_key">**{{sale_days}}**</span> 天, 结束于 **{{sale_end_at | date: "yyyy-MM-dd HH:mm"}}**, 并感谢所有会员用户的加入并期待给予我们更多的帮助与支持!',
       EXAMINATION_NOTICE: '### 重要通知! \n :radio: **{{site_name}}** 将从 **{{examination_start_at | date: "yyyy-MM-dd HH:mm"}}** 到 **{{examination_end_at | date: "yyyy-MM-dd HH:mm"}}** 进行一次新的增量考核, 增量数据要求: 上传 **{{data_upload | bytes:2}}**, 下载 **{{data_download | bytes:2}}**, 积分 **{{data_score}}**, 请各位会员安排好自已的时间，并祝您顺利通过这次考核. 所有 **vip** 用户以及最近 **{{join_days}}** 天内注册的新用户免考, 考核未达标的用户帐号将会被禁止.<small>[更多详情请看这里]({{detail_url}}).</small>',
       EXAMINATION_STATUS: '### 考核状态信息: \n <dl class="dl-horizontal"><dt>考核时间区间:</dt><dd>{{examination_start_at | date: "yyyy-MM-dd HH:mm"}} - {{examination_end_at | date: "yyyy-MM-dd HH:mm"}}</dd><dt>增量上传数据:</dt><dd>{{data_upload | bytes:2}}, 已完成 {{finished_upload | bytes:2}}</dd><dt>增量下载数据:</dt><dd>{{data_download | bytes:2}}, 已完成 {{finished_download | bytes:2}}</dd><dt>增量积分:</dt><dd>{{data_score | score: 2}}, 已完成 {{finished_score | score: 2}}</dd><dt>当前考核状态:</dt><dd>{{data_status | translate}}</dd><dt></dt><dd><small>[更多详情]({{detail_url}})</small></dd></dl>',
       EXAMINATION_FINISHED: '已通过',

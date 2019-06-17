@@ -5,12 +5,12 @@
     .module('torrents')
     .controller('TorrentsInfoController', TorrentsInfoController);
 
-  TorrentsInfoController.$inject = ['$scope', '$state', '$stateParams', '$translate', 'Authentication', 'Notification', 'TorrentsService',
+  TorrentsInfoController.$inject = ['$scope', '$rootScope', '$state', '$stateParams', '$translate', 'Authentication', 'Notification', 'TorrentsService',
     'MeanTorrentConfig', 'DownloadService', '$sce', '$filter', 'CommentsService', 'ModalConfirmService', 'marked', 'Upload', '$timeout',
     'SubtitlesService', 'getStorageLangService', 'NotifycationService', 'DebugConsoleService', 'TorrentGetInfoServices', 'AlbumsService',
     'localStorageService', '$compile', 'SideOverlay', 'ResourcesTagsServices', 'CollectionsService', 'moment'];
 
-  function TorrentsInfoController($scope, $state, $stateParams, $translate, Authentication, Notification, TorrentsService, MeanTorrentConfig,
+  function TorrentsInfoController($scope, $rootScope, $state, $stateParams, $translate, Authentication, Notification, TorrentsService, MeanTorrentConfig,
                                   DownloadService, $sce, $filter, CommentsService, ModalConfirmService, marked, Upload, $timeout, SubtitlesService,
                                   getStorageLangService, NotifycationService, mtDebug, TorrentGetInfoServices, AlbumsService,
                                   localStorageService, $compile, SideOverlay, ResourcesTagsServices, CollectionsService, moment) {
@@ -34,6 +34,7 @@
     vm.mediaInfoConfig = MeanTorrentConfig.meanTorrentConfig.mediaInfo;
     vm.hnrConfig = MeanTorrentConfig.meanTorrentConfig.hitAndRun;
     vm.torrentTypeConfig = MeanTorrentConfig.meanTorrentConfig.torrentType;
+    vm.collectionsConfig = MeanTorrentConfig.meanTorrentConfig.collections;
 
     vm.mediaInfoEditMode = false;
 
@@ -176,9 +177,37 @@
         $('.backdrop').css('backgroundImage', 'url("' + vm.TGI.getTorrentBackdropImage(vm.torrentLocalInfo) + '")');
 
         vm.rating_vote = res.resource_detail_info.vote_average;
+
+        vm.getTorrentCollectionsInfo($stateParams.torrentId);
+        vm.getTorrentAlbumsInfo($stateParams.torrentId);
+
         vm.initTabLists();
         vm.commentBuildPager();
         vm.buildPeersPager();
+      });
+    };
+
+    /**
+     * getTorrentCollectionsInfo
+     * @param tid
+     */
+    vm.getTorrentCollectionsInfo = function (tid) {
+      CollectionsService.getTorrentCollections({
+        torrentId: tid
+      }, function (res) {
+        vm.torrentCollectionsInfo = res;
+      });
+    };
+
+    /**
+     * getTorrentAlbumsInfo
+     * @param tid
+     */
+    vm.getTorrentAlbumsInfo = function (tid) {
+      AlbumsService.getTorrentAlbums({
+        torrentId: tid
+      }, function (res) {
+        vm.torrentAlbumsInfo = res;
       });
     };
 
@@ -191,6 +220,7 @@
         _torrentId: vm.torrentLocalInfo._id
       }, function (res) {
         vm.torrentLocalInfo = res;
+        $rootScope.$broadcast('new-torrents-changed');
         NotifycationService.showSuccessNotify('TORRENT_SETREVIEWED_SUCCESSFULLY');
       }, function (res) {
         NotifycationService.showErrorNotify(res.data.message, 'TORRENT_SETREVIEWED_ERROR');
@@ -617,32 +647,32 @@
 
       vm.torrentTabs.push(
         {
-          icon: 'fa-file-video-o',
+          icon: 'fa-file-video',
           title: $translate.instant('TAB_TORRENT_INFO'),
           templateUrl: 'torrentInfo.html',
           ng_show: true,
           badges: []
         },
         {
-          icon: 'fa-file-text',
-          title: $translate.instant('TAB_USER_SUBTITLE'),
-          templateUrl: 'subtitleInfo.html',
-          ng_show: vm.showSubtitleTab(),
-          badges: [
-            {
-              value: vm.torrentLocalInfo._subtitles.length,
-              class: 'badge_info'
-            }
-          ]
-        },
-        {
-          icon: 'fa-file-text',
+          icon: 'fa-image',
           title: $translate.instant('TAB_USER_SCREENSHOTS'),
           templateUrl: 'screenshots.html',
           ng_show: vm.showScreenshotsTab(),
           badges: [
             {
               value: vm.torrentLocalInfo.screenshots_image.length,
+              class: 'badge_info'
+            }
+          ]
+        },
+        {
+          icon: 'fa-file-alt',
+          title: $translate.instant('TAB_USER_SUBTITLE'),
+          templateUrl: 'subtitleInfo.html',
+          ng_show: vm.showSubtitleTab(),
+          badges: [
+            {
+              value: vm.torrentLocalInfo._subtitles.length,
               class: 'badge_info'
             }
           ]
@@ -1226,6 +1256,23 @@
     };
 
     /**
+     * isOwnerPeer
+     * @param t, torrent
+     * @returns {boolean}
+     */
+    vm.isOwnerPeer = function (t, p) {
+      if (t) {
+        if (t.user._id === p.user._id) {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
+    };
+
+    /**
      * canEdit
      * @returns {boolean}
      */
@@ -1543,10 +1590,10 @@
 
           var ele = $('#' + e.$editor.attr('id') + ' .md-footer');
           angular.element(ele).addClass('text-right');
-          angular.element(ele[0].childNodes[0]).addClass('btn-width-80');
+          angular.element(ele[0].childNodes[0]).addClass('btn-min-width-80');
           ele[0].childNodes[0].innerText = $translate.instant('FORUMS.BTN_SAVE');
 
-          var cbtn = angular.element('<button class="btn btn-default btn-width-80 margin-left-10">' + $translate.instant('FORUMS.BTN_CANCEL') + '</button>');
+          var cbtn = angular.element('<button class="btn btn-default btn-min-width-80 margin-left-10">' + $translate.instant('FORUMS.BTN_CANCEL') + '</button>');
           cbtn.bind('click', function (evt) {
             e.setContent(r.resource_detail_info.overview);
             e.$options.hideable = true;
